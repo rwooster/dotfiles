@@ -18,7 +18,7 @@ call vundle#end()
 filetype plugin indent on
 syntax on			"turn on syntax highliting
 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 set autoindent
 set smarttab
