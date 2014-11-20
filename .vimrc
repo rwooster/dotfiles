@@ -86,10 +86,6 @@ nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 " leader o to open a new buffer with nerdtree
 nmap <silent> <Leader>o :NERDTree <return>
 
-"hightlight lines over 100 characters
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%121v.\+/
-
 "f5 saves all and builds
 :map <F5> :wa<return> :make<return> 
 
