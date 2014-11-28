@@ -40,10 +40,18 @@ set mousehide		"hide mouse while typing
 set backspace=2		"fixes issue with backspace not working
 set nostartofline	"stops cursor from moving to start of line on buffer switch
 
+"set 256 color mode
 set t_Co=256
+
+"set colorscheme
 color kolor 
+
+"set background color to transparent
 hi Normal ctermbg=None
 hi NonText ctermbg=None
+
+"fix confusing brace highliting
+highlight MatchParen ctermfg=None
 
 "set path to directory of current file
 autocmd BufEnter * silent! lcd %:p:h
