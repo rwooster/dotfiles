@@ -20,6 +20,10 @@ syntax on			"turn on syntax highliting
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
+"close ycm scratch buffer
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
 set autoindent
 set smarttab
 set cindent 	"c style indenting
