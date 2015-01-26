@@ -33,6 +33,7 @@ set showmatch	"match parens, brackets, etc
 set tabstop=4	"number of visual spaces per tab
 set shiftwidth=4	"control tab length with << >> and c style indent
 set softtabstop=4	"how many columns for using tab in insert mode
+set nu				" default line numbers on
 set rnu				"default relative line numbers to on
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
@@ -87,7 +88,7 @@ vnoremap <C-c> <Esc>
 " use leader n to toggle the line number counting method
 function! NumberToggle()
 	if(&relativenumber == 1)
-		set number
+		set norelativenumber
 	else
 		set relativenumber
 	endif
