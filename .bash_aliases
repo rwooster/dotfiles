@@ -1,3 +1,5 @@
 alias please='sudo $(history -p !-1)'
 alias caen='ssh rwooster@login.engin.umich.edu'
 alias o='gnome-open'
+alias en='sh ~/.enable.sh'
+alias dis='sh ~/.disable.sh'
