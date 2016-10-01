@@ -26,7 +26,7 @@ fi
 
 # Add git branch to prompt
 source ~/.git-prompt.sh
-PS1="\u@laptop \w\[\033[m\]\$(__git_ps1)\$ "
+PS1="\u@vmware \w\[\033[m\]\$(__git_ps1)\$ "
 
 cgrep() {
     grep "$@" * -riIn --exclude-dir=".git" --exclude='*.crt' 2>/dev/null
