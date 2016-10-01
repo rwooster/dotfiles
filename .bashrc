@@ -19,8 +19,15 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# Add git branch to prompt
+source ~/.git-prompt.sh
+PS1="\u@laptop \w\[\033[m\]\$(__git_ps1)\$ "
+
+cgrep() {
+    grep "$@" * -riIn --exclude-dir=".git" --exclude='*.crt' 2>/dev/null
+}

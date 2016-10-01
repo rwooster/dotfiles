@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[core]
+# Please adapt and uncomment the following lines:
+#	user = Ryan Wooster
+#	email = rwooster@arbor.net
+[core]
+	editor = vim
+[user]
+	name = Ryan Wooster
+	email = rwooster@umich.edu
+[push]
+	default = simple
