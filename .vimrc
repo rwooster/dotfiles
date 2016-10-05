@@ -14,6 +14,7 @@ Plugin 'https://github.com/Shougo/neocomplete.vim'
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/rbgrouleff/bclose.vim'
 Plugin 'https://github.com/vim-scripts/taglist.vim'
+Plugin 'rust-lang/rust.vim'
 
 call vundle#end()
 

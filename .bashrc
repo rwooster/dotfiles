@@ -19,6 +19,11 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+export TERM=xterm-256color
+
+# Solarized dircolors
+eval `dircolors /home/ryan/.dir_colors/dircolors`
+
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -31,3 +36,4 @@ PS1="\u@vmware \w\[\033[m\]\$(__git_ps1)\$ "
 cgrep() {
     grep "$@" * -riIn --exclude-dir=".git" --exclude='*.crt' 2>/dev/null
 }
+export PATH="$HOME/.cargo/bin:$PATH"
