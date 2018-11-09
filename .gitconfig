@@ -1,0 +1,7 @@
+[user]
+	email = ryan.wooster@tri.global
+	name = Ryan Wooster
+[push]
+	default = simple
+[core]
+	editor = vim
