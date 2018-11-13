@@ -140,6 +140,10 @@ set t_Co=256
 "set vim to search for tags file starting at the dir of file and moving up
 set tags=./tags;
 
+" TRI Specific tag files
+set tags+=~/driving/src/tags
+set tags+=~/tdl/tags
+
 "set colorscheme
 set background=dark
 let g:solarized_termcolors=256
