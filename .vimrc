@@ -36,7 +36,6 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_enable_diagnostic_signs = 0
 "let g:ycm_enable_diagnostic_highlighting = 0
 "nmap <silent><Leader> cm :YcmForceCompileAndDiagnostics<CR>
-"let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -48,11 +47,13 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
 
-nnoremap <C-g> :YcmCompleter GoTo<CR>
+nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
+nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
+nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
 
 let g:ycm_server_log_level = 'debug'
 
-map <Leader>l :lnext <CR>
+map <Leader>n :lnext <CR>
 
 "
 "let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
@@ -61,32 +62,11 @@ map <Leader>l :lnext <CR>
 
 " }}}
 
-"NeoComplete OPTIONS
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ neocomplete#start_manual_complete()
-function! s:check_back_space() "{{{
-let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
-
 "NERDTree OPTIONS
 let NERDTreeQuitOnOpen=1
 
 "Taglist OPTIONS
-nnoremap <silent> <leader>t :TlistToggle<CR>
+nnoremap <silent> <leader>l :TlistToggle<CR>
 let Tlist_WinWidth = 45
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_Show_One_File = 1
@@ -131,7 +111,6 @@ set backspace=2		"fixes issue with backspace not working
 set nostartofline	"stops cursor from moving to start of line on buffer switch
 set cursorcolumn    "highlight line the cursor is on
 set expandtab       "tab inserts spaces instead
-
 
 
 "set 256 color mode
@@ -197,14 +176,6 @@ function! NumberToggle()
 	endif
 endfunc
 
-" Delete all trailing whitespace
-function! TrimWhiteSpace()
-  %s/\s*$//
-  ''
-:endfunction
-map <F2> :call TrimWhiteSpace()<CR>
-map! <F2> :call TrimWhiteSpace()<CR>
-
 nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 
 " remap esc
@@ -212,15 +183,6 @@ imap jj <Esc>
 
 " leader o to open a new buffer with nerdtree
 nmap <silent> <Leader>o :NERDTree <return>
-
-"f5 saves all and builds
-:map <F5> :wa<return> :make<return> 
-
-" leader p turns the current character to an arrow then goes to next line
-:map <Leader>p dhi-><Esc>j
-
-" leader . turns the next 2 characters (->) to . then goes to next line
-:map <Leader>. d2hi.<Esc>jhh
 
 "leader h turns off highlighting
 :map <silent> <Leader>h :noh<return>
@@ -230,7 +192,3 @@ nmap <silent> <Leader>o :NERDTree <return>
 
 "Leader s starts find/replace on word under cursor
 :nnoremap <Leader>s :%s/<C-r><C-w>/
-
-"Leader b to close current buffer w/o closing window
-:nnoremap <Leader>b :Bclose<return>
-
