@@ -104,7 +104,6 @@ set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
 set ignorecase			"case insensitive search
 set smartcase
-set autowrite		"save buffers before they are hidden
 set hidden			"switch buffers w/o saving
 set mousehide		"hide mouse while typing
 set backspace=2		"fixes issue with backspace not working

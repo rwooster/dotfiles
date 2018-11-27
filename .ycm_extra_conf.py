@@ -16,6 +16,7 @@ def FlagsForFile(filename, **kwargs):
                '-I%s/driving/src' % HOMEDIR,
                # boost
                '-DBOOST_ASIO_ENABLE_OLD_SERVICES',
+               '-DBOOST_ENABLE_ASSERT_HANDLER',
 
                '-isystem', '%s/driving/src/bazel-src/external/boost/boost_1_67_0' % HOMEDIR,
                # tdl
