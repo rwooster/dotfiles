@@ -10,7 +10,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
 Plugin 'https://github.com/scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'https://github.com/junegunn/fzf'
+Plugin 'https://github.com/junegunn/fzf.vim' " FZF keybindings
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'https://github.com/vim-scripts/taglist.vim'
 
@@ -47,6 +47,9 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
 
+" Idk why ycm is all borked
+let g:ycm_show_diagnostics_ui = 0
+
 nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
 nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
@@ -71,6 +74,10 @@ let Tlist_WinWidth = 45
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_Show_One_File = 1
 let Tlist_Close_On_Select = 1
+
+"FZF OPTIONS
+set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
+nmap <silent> <C-p> :Files ~/driving/<return>
 
 " always show the status line
 set laststatus=2

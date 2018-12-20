@@ -34,6 +34,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+export FZF_TMUX_HEIGHT=30
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -58,10 +61,6 @@ fi
 source ~/.git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\[\e[1;37m\]\[\e[1;32m\]\u\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\]\[\e[1;37m\]$\[\e[0;39m\] '
-
-cgrep() {
-  grep "$@" * -riIn --exclude-dir=".git" --exclude-dir="bazel-*" --exclude-dir="automated_data_review" --exclude="tags" 2>/dev/null
-}
 
 VISUAL=vim
 EDITOR=vim
