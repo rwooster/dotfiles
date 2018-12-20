@@ -45,10 +45,8 @@ let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
-
-" Idk why ycm is all borked
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+let g:ycm_show_diagnostics_ui = 1
 
 nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
