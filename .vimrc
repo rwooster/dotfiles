@@ -14,6 +14,8 @@ Plugin 'https://github.com/junegunn/fzf.vim' " FZF keybindings
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'https://github.com/vim-scripts/taglist.vim'
 Plugin 'https://github.com/brooth/far.vim'
+Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/itchyny/lightline.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -26,17 +28,9 @@ syntax on			"turn on syntax highliting
 
 " YouCompleteMe ----------------------------------------------------------- {{{
 
-"let g:ycm_filetype_specific_completion_to_disable = {'erl':1, 'hrl':1}
-"let g:ycm_confirm_extra_conf = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_seed_identifiers_with_syntax = 1
-""let g:ycm_key_invoke_completion = '<C-q>'
-"let g:ycm_show_diagnostics_ui = 0
-"let g:ycm_enable_diagnostic_signs = 0
-"let g:ycm_enable_diagnostic_highlighting = 0
-"nmap <silent><Leader> cm :YcmForceCompileAndDiagnostics<CR>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -52,17 +46,8 @@ let g:ycm_show_diagnostics_ui = 1
 nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
 nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
-
-let g:ycm_server_log_level = 'debug'
-
 map <Leader>n :lnext <CR>
 
-"
-"let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-"nnoremap <leader>jd :YcmCompleter GoTo<CR>
-
-" }}}
 
 "NERDTree OPTIONS
 let NERDTreeQuitOnOpen=1
@@ -78,21 +63,20 @@ let Tlist_Close_On_Select = 1
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
 nmap <silent> <C-p> :Files ~/driving/<return>
 
-" always show the status line
-set laststatus=2
+"Lightline OPTIONS
+set laststatus=2 "always show the status line (vim option)
+" Requires fugitive to also be installed
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
-" a friendly, useful, and descriptive status line
-set statusline=%t       "tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%y      "filetype
-set statusline+=%=      "left/right separator
-set statusline+=%c:%v,     "cursor column (actual,virtual - great with tabs)
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
 
 set completeopt-=preview "disable preview menu
 set autoindent
