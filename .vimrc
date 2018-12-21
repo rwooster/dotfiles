@@ -13,6 +13,7 @@ Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'https://github.com/junegunn/fzf.vim' " FZF keybindings
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'https://github.com/vim-scripts/taglist.vim'
+Plugin 'https://github.com/brooth/far.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
