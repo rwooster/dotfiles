@@ -46,8 +46,6 @@ let g:ycm_show_diagnostics_ui = 1
 nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
 nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
-map <Leader>n :lnext <CR>
-
 
 "NERDTree OPTIONS
 let NERDTreeQuitOnOpen=1
@@ -77,6 +75,9 @@ let g:lightline = {
       \ },
       \ }
 
+"Fugutive OPTIONS
+nmap <silent> <leader>q :cnext<return>
+nmap <silent> <leader>p :cprev<return>
 
 set completeopt-=preview "disable preview menu
 set autoindent
