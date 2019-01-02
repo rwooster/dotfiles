@@ -138,6 +138,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd! BufWinLeave * let b:winview = winsaveview()
 autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | unlet b:winview
 
+" Run TRI cpp formatter on save
+autocmd BufWritePost *.{cc,h} execute '!~/driving/src/clang_format.sh %:p' | edit
+
 " map for ctags next/prev options
 nnoremap <Leader>] :tnext<return>
 nnoremap <Leader>[ :tprev<return>
