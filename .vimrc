@@ -60,6 +60,7 @@ let Tlist_Close_On_Select = 1
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
 nmap <silent> <C-p> :Files ~/driving/<return>
+nmap <silent> <C-[> :Buffers<return>
 
 "Lightline OPTIONS
 set laststatus=2 "always show the status line (vim option)

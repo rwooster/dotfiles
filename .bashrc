@@ -60,6 +60,8 @@ fi
 
 # Add git branch to prompt
 source ~/.git-prompt.sh
+# Add git completion
+source /usr/share/bash-completion/completions/git
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\[\e[1;37m\]\[\e[1;32m\]\u\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\]\[\e[1;37m\]$\[\e[0;39m\] '
 
