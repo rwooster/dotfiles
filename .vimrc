@@ -59,7 +59,7 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files ~/driving/<return>
+nmap <silent> <C-p> :Files<return>
 nmap <silent> <C-[> :Buffers<return>
 
 "Lightline OPTIONS
@@ -110,10 +110,6 @@ set t_Co=256
 "set vim to search for tags file starting at the dir of file and moving up
 set tags=./tags;
 
-" TRI Specific tag files
-set tags+=~/driving/src/tags
-set tags+=~/tdl/tags
-
 "set colorscheme
 set background=dark
 let g:solarized_termcolors=256
@@ -138,9 +134,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Save window view when changing between buffers
 autocmd! BufWinLeave * let b:winview = winsaveview()
 autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | unlet b:winview
-
-" Run TRI cpp formatter on save
-autocmd BufWritePost *.{cc,h} execute 'silent !~/driving/src/clang_format.sh %:p' | edit
 
 " map for ctags next/prev options
 nnoremap <Leader>] :tnext<return>
