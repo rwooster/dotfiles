@@ -3,22 +3,18 @@ alias v="vim"
 alias ccheck='clang++-7 $(python ~/.ycm_extra_conf.py)'
 alias cformat='pushd /home/ryanwooster/driving/src/ > /dev/null && git diff --name-only --relative HEAD | egrep "*.[cc|h]$" | xargs ./clang_format.sh && popd > /dev/null'
 alias fzf='fzf-tmux'
+alias te='/home/ryanwooster/driving/src/interface/timing_measurement/timing_eval.py -b /home/ryanwooster/driving/src/interface/timing_measurement/budget_data/planner_timing.yaml -i'
 
 cgrep() {
   grep "$@" * -riIn --exclude-dir=".git" --exclude-dir="bazel-*" --exclude-dir="automated_data_review" --exclude="tags" 2>/dev/null
 }
 
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
 fo() {
-  local out file key
-  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || vim "${file}"
-  fi
+  local files=$(fzf --query="$1" --multi --select-1 --exit-0)
+  [[ -n "$files" ]] && vim "${files[@]}"
 }
 
 # cdf - cd into the directory of the selected file

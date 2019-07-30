@@ -1,5 +1,5 @@
 let mapleader = "\<Space>"
-
+"
 set nocompatible
 filetype off
 
@@ -59,8 +59,8 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files ~/driving/<return>
-nmap <silent> <C-[> :Buffers<return>
+nmap <silent> <C-p> :Files ~/driving/<CR>
+nmap <silent> <C-]> :Buffers<CR>
 
 "Lightline OPTIONS
 set laststatus=2 "always show the status line (vim option)
@@ -77,8 +77,8 @@ let g:lightline = {
       \ }
 
 "Fugutive OPTIONS
-nmap <silent> <leader>q :cnext<return>
-nmap <silent> <leader>p :cprev<return>
+nmap <silent> <leader>q :cnext<CR>
+nmap <silent> <leader>p :cprev<CR>
 
 set completeopt-=preview "disable preview menu
 set autoindent
@@ -143,16 +143,16 @@ autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | un
 autocmd BufWritePost *.{cc,h} execute 'silent !~/driving/src/clang_format.sh %:p' | edit
 
 " map for ctags next/prev options
-nnoremap <Leader>] :tnext<return>
-nnoremap <Leader>[ :tprev<return>
+nnoremap <Leader>] :tnext<CR>
+nnoremap <Leader>[ :tprev<CR>
 
 " move vertically by visual line
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " map ctrl h/l to change buffers
-nmap <silent> <C-h> :bp<return>
-nmap <silent> <C-l> :bn<return>
+nmap <silent> <C-h> :bp<CR>
+nmap <silent> <C-l> :bn<CR>
 
 "bubble single lines
 nmap <C-k> ddkP
@@ -176,13 +176,16 @@ nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 imap jj <Esc>
 
 " leader o to open a new buffer with nerdtree
-nmap <silent> <Leader>o :NERDTree <return>
+nmap <silent> <Leader>o :NERDTree <CR>
 
 "leader h turns off highlighting
-:map <silent> <Leader>h :noh<return>
+:map <silent> <Leader>h :noh<CR>
 
 "leader d shows current dir
-:map <silent> <Leader>d :!pwd<return>
+:map <silent> <Leader>d :!pwd<CR>
 
 "Leader s starts find/replace on word under cursor
 :nnoremap <Leader>s :%s/<C-r><C-w>/
+
+" Leader h swaps between header and src file (*.h, *.cc, must be in same directory)
+:map <silent> <Leader>j :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
