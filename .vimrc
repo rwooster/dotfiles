@@ -1,51 +1,84 @@
 let mapleader = "\<Space>"
 "
 set nocompatible
-filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"" Auto install
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'https://github.com/altercation/vim-colors-solarized'
-Plugin 'https://github.com/scrooloose/nerdcommenter'
-Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'https://github.com/junegunn/fzf.vim' " FZF keybindings
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'https://github.com/vim-scripts/taglist.vim'
-Plugin 'https://github.com/brooth/far.vim'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/itchyny/lightline.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+call plug#begin('~/.vim/bundle')
+Plug 'https://github.com/altercation/vim-colors-solarized'
+Plug 'https://github.com/scrooloose/nerdcommenter'
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/junegunn/fzf.vim' " FZF keybindings
+Plug 'qpkorr/vim-bufkill'
+Plug 'https://github.com/vim-scripts/taglist.vim'
+Plug 'https://github.com/brooth/far.vim'
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/itchyny/lightline.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-call vundle#end()
-
-"Enable filetypes
-filetype plugin indent on
-syntax on			"turn on syntax highliting
-
+call plug#end()
 
 " YouCompleteMe ----------------------------------------------------------- {{{
 
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 0 " Let YCM read tags from Ctags file
-let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1 " Completion in comments
-let g:ycm_complete_in_strings = 1 " Completion in string
-let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-let g:ycm_show_diagnostics_ui = 1
+"let g:ycm_add_preview_to_completeopt = 1
+"let g:ycm_autoclose_preview_window_after_completion = 0
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_collect_identifiers_from_tags_files = 0 " Let YCM read tags from Ctags file
+"let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+"let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+"let g:ycm_complete_in_comments = 1 " Completion in comments
+"let g:ycm_complete_in_strings = 1 " Completion in string
+"let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
+"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+"let g:ycm_show_diagnostics_ui = 1
+"
+"nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
+"nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
+"nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
 
-nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
-nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
-nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
+"LSP / coc.nvim OPTIONS"
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+"" Highlight symbol under cursor on CursorHold
+autocmd CursorMoved * silent call CocActionAsync('highlight')
+
+"" Mapping for running a CodeAction
+"nmap <silent> ma <Plug>(coc-codeaction-selected)<CR>
+
+"" Mapping for GoTo Definition/Declaration
+nmap <silent> <Leader>g <Plug>(coc-definition)
+
+"" Mapping for Find References
+"nmap <silent> mr <Plug>(coc-references)<CR>
+
+"" Mapping for Rename
+"nmap <silent> mR <Plug>(coc-rename)
+
+"" Mapping for showing Implementation of Interface
+"nmap <silent> mi <Plug>(coc-implementation)
+
+"" Mapping for Type Definition
+nmap <silent> <Leader>t <Plug>(coc-type-definition)
+
+
 
 "NERDTree OPTIONS
 let NERDTreeQuitOnOpen=1
@@ -59,7 +92,7 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files ~/driving/<CR>
+nmap <silent> <C-p> :Files ~/driving/src/<CR>
 nmap <silent> <C-]> :Buffers<CR>
 
 "Lightline OPTIONS
@@ -79,6 +112,50 @@ let g:lightline = {
 "Fugutive OPTIONS
 nmap <silent> <leader>q :cnext<CR>
 nmap <silent> <leader>p :cprev<CR>
+
+
+" Custom Functions
+
+command Black !black -l 120 %:p
+
+function! NumberToggle()
+	if(&relativenumber == 1)
+		set norelativenumber
+	else
+		set relativenumber
+	endif
+endfunc
+" use leader n to toggle the line number counting method
+nnoremap <silent> <Leader>n :call NumberToggle()<cr>
+
+function! s:gotobuild() abort
+    let l:file_path=@%  
+    let l:file_name=split(l:file_path, '/')[-1]
+    let l:file_directory=trim(system('dirname ' . l:file_path))          
+    let l:worktree=trim(system("git -C " . l:file_directory . " rev-parse --show-toplevel"))
+    if l:worktree =~ "fatal: not a git repository"
+      echo "Doing nothing, not in a git repository"
+      return            
+    endif               
+    " Use ripgrep if available
+    if trim(system('which rg')) != ''
+      let l:command='rg ' . l:file_name . ' --glob "BUILD" --vimgrep ' . l:worktree
+    else                
+      let l:command='grep -r ' . l:file_name . ' ' . l:worktree . ' -n --include "BUILD"'
+    endif               
+    let l:result=trim(system(l:command))
+    if l:result == ""   
+      echo 'No corresponding BUILD file found'
+    else                
+      let l:result_list=split(l:result, ':')
+      let l:build_file_name=l:result_list[0]
+      let l:build_file_line=l:result_list[1]
+      execute 'edit +' . l:build_file_line l:build_file_name
+      execute 'normal! zz'
+    endif               
+endfunction             
+command! -complete=command GOTOBuild call <SID>gotobuild()
+nnoremap <silent> <Leader>b :GOTOBuild<CR>
 
 set completeopt-=preview "disable preview menu
 set autoindent
@@ -102,6 +179,7 @@ set backspace=2		"fixes issue with backspace not working
 set nostartofline	"stops cursor from moving to start of line on buffer switch
 set cursorcolumn    "highlight line the cursor is on
 set expandtab       "tab inserts spaces instead
+set noswapfile
 
 
 "set 256 color mode
@@ -125,6 +203,8 @@ hi NonText ctermbg=None
 
 "fix confusing brace highliting
 highlight MatchParen ctermfg=None
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 "set path to directory of current file
 autocmd BufEnter * silent! lcd %:p:h
@@ -161,17 +241,6 @@ nmap <C-j> ddp
 vmap <C-k> xkP`[V`]
 vmap <C-j> xp`[V`]
 
-" use leader n to toggle the line number counting method
-function! NumberToggle()
-	if(&relativenumber == 1)
-		set norelativenumber
-	else
-		set relativenumber
-	endif
-endfunc
-
-nnoremap <silent> <Leader>n :call NumberToggle()<cr>
-
 " remap esc
 imap jj <Esc>
 
@@ -187,5 +256,5 @@ nmap <silent> <Leader>o :NERDTree <CR>
 "Leader s starts find/replace on word under cursor
 :nnoremap <Leader>s :%s/<C-r><C-w>/
 
-" Leader h swaps between header and src file (*.h, *.cc, must be in same directory)
+" Leader j swaps between header and src file (*.h, *.cc, must be in same directory)
 :map <silent> <Leader>j :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
