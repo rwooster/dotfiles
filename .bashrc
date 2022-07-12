@@ -39,7 +39,7 @@ fi
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!bazel-*" --glob "!.clangd*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!bazel-*" --glob "!.clangd*" --glob "!bin/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -75,3 +75,5 @@ export DRIVING_BAZEL_REMOTE_CACHE=s3
 VISUAL=vim
 EDITOR=vim
 source "$HOME/.cargo/env"
+export DISPLAY=:1
+export PATH=$PATH:/home/ryanwooster/.arene/bin

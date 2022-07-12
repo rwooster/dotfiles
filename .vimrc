@@ -92,7 +92,7 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files ~/driving/src/<CR>
+nmap <silent> <C-p> :Files ~/driving/<CR>
 nmap <silent> <C-]> :Buffers<CR>
 
 "Lightline OPTIONS
