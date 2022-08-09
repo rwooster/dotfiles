@@ -7,6 +7,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 setopt appendhistory autocd extendedglob nomatch 
 setopt NO_AUTOLIST BASH_AUTOLIST NO_MENUCOMPLETE
+setopt noEXTENDED_GLOB
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
