@@ -16,7 +16,7 @@ Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/junegunn/fzf.vim' " FZF keybindings
 Plug 'qpkorr/vim-bufkill'
-Plug 'https://github.com/vim-scripts/taglist.vim'
+"Plug 'https://github.com/vim-scripts/taglist.vim'
 Plug 'https://github.com/brooth/far.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/itchyny/lightline.vim'
@@ -48,10 +48,12 @@ call plug#end()
 "LSP / coc.nvim OPTIONS"
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -154,8 +156,8 @@ function! s:gotobuild() abort
       execute 'normal! zz'
     endif               
 endfunction             
-command! -complete=command GOTOBuild call <SID>gotobuild()
-nnoremap <silent> <Leader>b :GOTOBuild<CR>
+"command! -complete=command GOTOBuild call <SID>gotobuild()
+"nnoremap <silent> <Leader>b :GOTOBuild<CR>
 
 set completeopt-=preview "disable preview menu
 set autoindent
