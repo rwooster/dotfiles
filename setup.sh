@@ -6,7 +6,7 @@ if ! zsh --version &>/dev/null; then
   sudo chsh $(which zsh)
 fi
 
-pushd ~
+pushd ~ &>/dev/null
 rm -f .vimrc .tmux.conf .zshrc .gitconfig
 ln -s dotfiles/.vimrc .vimrc
 ln -s dotfiles/.tmux.conf .tmux.conf
@@ -14,17 +14,21 @@ ln -s dotfiles/.zshrc .zshrc
 ln -s dotfiles/.gitconfig .gitconfig
 
 mkdir -p .vim/
-pushd .vim/
+pushd .vim/ &>/dev/null
+rm -f coc-settings.json
 ln -s ../dotfiles/coc-settings.json coc-settings.json
-popd
+popd &>/dev/null
 
-popd
+popd &>/dev/null
 
 uname_out="$(uname)"
 
 if [[ "${uname_out}" == "Linux" ]]; then
     vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
-    if [ ${vim_version} -lt 9.0 ]; then
+    min_vim_version="9.0"
+    printf -v versions '%s\n%s' "$vim_version" "$min_vim_version"
+    if [[ ${vim_version} != ${min_vim_version} &&
+          $versions = "$(sort -V <<< "$versions")" ]]; then
       sudo add-apt-repository ppa:jonathonf/vim
       sudo apt update
       sudo apt install vim
