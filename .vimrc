@@ -24,6 +24,15 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
+"Setup common coc plugins
+if empty(glob('~/.config/coc/extensions/node_modules/coc-clangd'))
+  autocmd VimEnter * CocInstall coc-clangd
+  autocmd VimEnter * CocCommand clangd.install
+  autocmd VimEnter * CocInstall coc-json
+  autocmd VimEnter * CocInstall coc-json
+  autocmd VimEnter * CocInstall coc-python
+endif
+
 " YouCompleteMe ----------------------------------------------------------- {{{
 
 "let g:ycm_add_preview_to_completeopt = 1
