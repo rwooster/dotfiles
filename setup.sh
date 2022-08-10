@@ -1,21 +1,34 @@
 #!/bin/bash
 set -euo pipefail
 
+if ! zsh --version &>/dev/null; then
+  apt get install zsh
+  sudo chsh $(which zsh)
+fi
+
 pushd ~
-rm -f .vimrc .tmux.conf .zshrc
+rm -f .vimrc .tmux.conf .zshrc .gitconfig
 ln -s dotfiles/.vimrc .vimrc
 ln -s dotfiles/.tmux.conf .tmux.conf
 ln -s dotfiles/.zshrc .zshrc
 ln -s dotfiles/.gitconfig .gitconfig
+
+mkdir -p .vim/
+pushd .vim/
+ln -s ../dotfiles/coc-settings.json coc-settings.json
+popd
+
 popd
 
 uname_out="$(uname)"
 
 if [[ "${uname_out}" == "Linux" ]]; then
-    # TODO Add version check
-    sudo add-apt-repository ppa:jonathonf/vim
-    sudo apt update
-    sudo apt install vim
+    vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
+    if [ ${vim_version} -lt 9.0 ]; then
+      sudo add-apt-repository ppa:jonathonf/vim
+      sudo apt update
+      sudo apt install vim
+    fi
     
     if ! gh --version &>/dev/null; then
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
@@ -38,7 +51,7 @@ if [[ "${uname_out}" == "Linux" ]]; then
     fi
 
 else
-    # Upgrade the local bash version
+    # Some of these may come installed, but homebrew will update them.
     brew install bash
     brew install vim
     brew install gh
@@ -50,6 +63,4 @@ fi
 if [[ ! -e ~/.fzf.bash ]]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
-else
-  echo "FZF is already installed."
 fi
