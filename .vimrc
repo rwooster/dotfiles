@@ -29,41 +29,26 @@ if empty(glob('~/.config/coc/extensions/node_modules/coc-clangd'))
   autocmd VimEnter * CocInstall coc-clangd
   autocmd VimEnter * CocCommand clangd.install
   autocmd VimEnter * CocInstall coc-json
-  autocmd VimEnter * CocInstall coc-json
   autocmd VimEnter * CocInstall coc-python
+  autocmd VimEnter * CocInstall coc-sh
 endif
-
-" YouCompleteMe ----------------------------------------------------------- {{{
-
-"let g:ycm_add_preview_to_completeopt = 1
-"let g:ycm_autoclose_preview_window_after_completion = 0
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"let g:ycm_confirm_extra_conf = 0
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_collect_identifiers_from_tags_files = 0 " Let YCM read tags from Ctags file
-"let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-"let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-"let g:ycm_complete_in_comments = 1 " Completion in comments
-"let g:ycm_complete_in_strings = 1 " Completion in string
-"let g:ycm_always_populate_location_list = 1 " make it so location list is populated for :lnext and :lprevious
-"let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-"let g:ycm_show_diagnostics_ui = 1
-"
-"nnoremap <silent> <Leader>g :YcmCompleter GoTo<CR>
-"nnoremap <silent> <Leader>t :YcmCompleter GetType<CR>
-"nnoremap <silent> <Leader>f :YcmCompleter FixIt<CR>
 
 "LSP / coc.nvim OPTIONS"
 " Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1):
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
