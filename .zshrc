@@ -41,12 +41,15 @@ export DISPLAY=:1
 export PATH=$PATH:/home/ryanwooster/.arene/bin
 
 # Set aliases
+# TODO: Move these to a separate file.
+# Also should port over some of the useful functions from the bash config as needed.
 alias vi="vim"
 alias v="vim"
 alias gitfix='git commit --amend --no-edit'
+alias ls="ls --color=auto"
 
-cgrep() {
-  grep "$@" * -riIn --exclude-dir=".git" --exclude-dir="bazel-*" --exclude-dir="automated_data_review" --exclude="tags" --exclude-dir="third_party" 2>/dev/null
+crg() {
+  rg -g '!*.json' -g '!automated_data_review' -g '!bazel-*' -g '!*/third-party/*' -g '!*/third_party/*' -g '!*.secdata' -g '!*.xml' "$@"
 }
 
 export NVM_DIR="$HOME/.nvm"
