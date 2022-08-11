@@ -8,16 +8,16 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
+HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTTIMEFORMAT="%h %d %H:%M:%S "
+HISTSIZE=10000
+HISTFILESIZE=10000
+HISTIGNORE="ls:ps:history"
+
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -34,7 +34,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git" --glob "!bazel-*" --glob "!.clangd*" --glob "!bin/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -64,6 +69,11 @@ source ~/.git-prompt.sh
 source /usr/share/bash-completion/completions/git
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\[\e[1;37m\]\[\e[1;32m\]\u\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\]\[\e[1;37m\]$\[\e[0;39m\] '
+export BAZEL_ENABLE_DOCKER_SANDBOX=true
+export DRIVING_BAZEL_REMOTE_CACHE=s3
 
 VISUAL=vim
 EDITOR=vim
+source "$HOME/.cargo/env"
+export DISPLAY=:1
+export PATH=$PATH:/home/ryanwooster/.arene/bin
