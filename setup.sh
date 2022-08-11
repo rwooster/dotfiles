@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+SCRIPT_DIR=$(dirname $(readlink -f "$0"))
+
 if ! zsh --version &>/dev/null; then
   apt get install zsh
   sudo chsh $(which zsh)
@@ -8,15 +10,15 @@ fi
 
 pushd ~ &>/dev/null
 rm -f .vimrc .tmux.conf .zshrc .gitconfig
-ln -s dotfiles/.vimrc .vimrc
-ln -s dotfiles/.tmux.conf .tmux.conf
-ln -s dotfiles/.zshrc .zshrc
-ln -s dotfiles/.gitconfig .gitconfig
+ln -s ${SCRIPT_DIR}/.vimrc .vimrc
+ln -s ${SCRIPT_DIR}/.tmux.conf .tmux.conf
+ln -s ${SCRIPT_DIR}/.zshrc .zshrc
+ln -s ${SCRIPT_DIR}/.gitconfig .gitconfig
 
 mkdir -p .vim/
 pushd .vim/ &>/dev/null
 rm -f coc-settings.json
-ln -s ../dotfiles/coc-settings.json coc-settings.json
+ln -s ${SCRIPT_DIR}/coc-settings.json coc-settings.json
 popd &>/dev/null
 
 popd &>/dev/null
@@ -55,13 +57,24 @@ if [[ "${uname_out}" == "Linux" ]]; then
     fi
 
 else
+    if ! brew --version &>/dev/null; then
+      # Install homebrew.
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
     # Some of these may come installed, but homebrew will update them.
+    # Homebrew generally has more up-to-date versions of software.
     brew install bash
     brew install vim
     brew install gh
     brew install node
     brew install rsync
     brew install rg
+
+    brew install --cask iterm2
+
+    brew tap homebrew/cask-fonts
+    brew install font-inconsolata
 fi
 
 if [[ ! -e ~/.fzf.bash ]]; then
