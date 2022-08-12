@@ -57,6 +57,7 @@ export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always' # --exclude 
 # This lets the fd colors work. This can be slow, remove this if fzf seems to start lagging.
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always --exclude bin/'
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
