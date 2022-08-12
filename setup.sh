@@ -1,30 +1,39 @@
 #!/bin/bash
 set -euo pipefail
 
+SCRIPT_DIR=$(dirname $(readlink -f "$0"))
+
 if ! zsh --version &>/dev/null; then
   apt get install zsh
   sudo chsh $(which zsh)
 fi
 
-pushd ~
+pushd ~ &>/dev/null
 rm -f .vimrc .tmux.conf .zshrc .gitconfig
-ln -s dotfiles/.vimrc .vimrc
-ln -s dotfiles/.tmux.conf .tmux.conf
-ln -s dotfiles/.zshrc .zshrc
-ln -s dotfiles/.gitconfig .gitconfig
+ln -s ${SCRIPT_DIR}/.vimrc .vimrc
+ln -s ${SCRIPT_DIR}/.tmux.conf .tmux.conf
+ln -s ${SCRIPT_DIR}/.zshrc .zshrc
+ln -s ${SCRIPT_DIR}/.gitconfig .gitconfig
 
 mkdir -p .vim/
-pushd .vim/
-ln -s ../dotfiles/coc-settings.json coc-settings.json
-popd
+pushd .vim/ &>/dev/null
+rm -f coc-settings.json
+ln -s ${SCRIPT_DIR}/coc-settings.json coc-settings.json
+popd &>/dev/null
 
-popd
+popd &>/dev/null
 
 uname_out="$(uname)"
 
 if [[ "${uname_out}" == "Linux" ]]; then
+    # Pugets are running Ubuntu 18.04, so the apt repositories available generally have very old versions of software.
+    # Instead, try and either add new repositories or download later releases and install them.
+
     vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
-    if [ ${vim_version} -lt 9.0 ]; then
+    min_vim_version="9.0"
+    printf -v versions '%s\n%s' "$vim_version" "$min_vim_version"
+    if [[ ${vim_version} != ${min_vim_version} &&
+          $versions = "$(sort -V <<< "$versions")" ]]; then
       sudo add-apt-repository ppa:jonathonf/vim
       sudo apt update
       sudo apt install vim
@@ -50,17 +59,35 @@ if [[ "${uname_out}" == "Linux" ]]; then
       rm ripgrep*.deb
     fi
 
+    if ! fd --help &>/dev/null; then
+      wget https://github.com/sharkdp/fd/releases/download/v8.4.0/fd_8.4.0_amd64.deb
+      sudo dpkg -i fd*.deb
+      rm fd*.deb
+    fi
+
+    if ! fzf --version &>/dev/null; then
+      git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+      ~/.fzf/install
+    fi
 else
+    if ! brew --version &>/dev/null; then
+      # Install homebrew.
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
     # Some of these may come installed, but homebrew will update them.
+    # Homebrew generally has more up-to-date versions of software.
     brew install bash
     brew install vim
     brew install gh
     brew install node
     brew install rsync
     brew install rg
-fi
+    brew install fzf
+    brew install fd
 
-if [[ ! -e ~/.fzf.bash ]]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
+    brew install --cask iterm2
+
+    brew tap homebrew/cask-fonts
+    brew install font-inconsolata
 fi
