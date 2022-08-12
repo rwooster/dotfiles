@@ -51,9 +51,13 @@ alias ls="ls --color=auto"
 crg() {
   rg -g '!*.json' -g '!automated_data_review' -g '!bazel-*' -g '!*/third-party/*' -g '!*/third_party/*' -g '!*.secdata' -g '!*.xml' "$@"
 }
+# Configure fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always' # --exclude bin/'
+# This lets the fd colors work. This can be slow, remove this if fzf seems to start lagging.
+export FZF_DEFAULT_OPTS="--ansi"
+export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always --exclude bin/'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

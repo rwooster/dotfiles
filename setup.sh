@@ -56,6 +56,16 @@ if [[ "${uname_out}" == "Linux" ]]; then
       rm ripgrep*.deb
     fi
 
+    if ! fd --help &>/dev/null; then
+      wget https://github.com/sharkdp/fd/releases/download/v8.4.0/fd_8.4.0_amd64.deb
+      sudo dpkg -i fd*.deb
+      rm fd*.deb
+    fi
+
+    if ! fzf --version &>/dev/null; then
+      git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+      ~/.fzf/install
+    fi
 else
     if ! brew --version &>/dev/null; then
       # Install homebrew.
@@ -70,14 +80,11 @@ else
     brew install node
     brew install rsync
     brew install rg
+    brew install fzf
+    brew install fd
 
     brew install --cask iterm2
 
     brew tap homebrew/cask-fonts
     brew install font-inconsolata
-fi
-
-if [[ ! -e ~/.fzf.bash ]]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
 fi
