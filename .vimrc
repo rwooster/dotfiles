@@ -85,8 +85,23 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files<CR>
-nmap <silent> <C-[> :Rg<CR>
+
+"Helper function to find a project root based on git directory.
+"Used as the base for file and content search by :Files and :Rg.
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+"Define new command to search for files starting at the root.
+command! ProjectFiles execute 'Files' s:find_git_root()
+
+"Define new command to rg starting at the root.
+command! -bang -nargs=* ProjectRg
+      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".
+      \ shellescape(<q-args>), 1, {"dir": s:find_git_root()})
+
+nmap <silent> <C-p> :ProjectFiles<CR>
+nmap <silent> <C-[> :ProjectRg<CR>
 nmap <silent> <C-]> :Buffers<CR>
 
 "This is the default option, but putting this here to allow easy editing if necessary.
