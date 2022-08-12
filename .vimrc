@@ -69,6 +69,8 @@ nmap <silent> <Leader>g <Plug>(coc-definition)
 "" Mapping for Type Definition
 nmap <silent> <Leader>t <Plug>(coc-type-definition)
 
+" Leader j swaps between header and src file (*.h, *.cc, must be in same directory)
+:nmap <silent> <Leader>j :CocCommand clangd.switchSourceHeader<CR>
 
 
 "NERDTree OPTIONS
@@ -83,8 +85,13 @@ let Tlist_Close_On_Select = 1
 
 "FZF OPTIONS
 set rtp+=~/.fzf "Enable FZF in vim. Required by fzf.vim plugin
-nmap <silent> <C-p> :Files ~/driving/<CR>
+nmap <silent> <C-p> :Files<CR>
+nmap <silent> <C-[> :Rg<CR>
 nmap <silent> <C-]> :Buffers<CR>
+
+"This is the default option, but putting this here to allow easy editing if necessary.
+"First param is the location and percentage, second the the command to close it.
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
 "Lightline OPTIONS
 set laststatus=2 "always show the status line (vim option)
@@ -176,13 +183,6 @@ set noswapfile
 "set 256 color mode
 set t_Co=256
 
-"set vim to search for tags file starting at the dir of file and moving up
-set tags=./tags;
-
-" TRI Specific tag files
-set tags+=~/driving/src/tags
-set tags+=~/tdl/tags
-
 "set colorscheme
 set background=dark
 let g:solarized_termcolors=256
@@ -213,10 +213,6 @@ autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | un
 " Run TRI cpp formatter on save
 autocmd BufWritePost *.{cc,h} execute 'silent !~/driving/src/clang_format.sh %:p' | edit
 
-" map for ctags next/prev options
-nnoremap <Leader>] :tnext<CR>
-nnoremap <Leader>[ :tprev<CR>
-
 " move vertically by visual line
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -246,6 +242,3 @@ nmap <silent> <Leader>o :NERDTree <CR>
 
 "Leader s starts find/replace on word under cursor
 :nnoremap <Leader>s :%s/<C-r><C-w>/
-
-" Leader j swaps between header and src file (*.h, *.cc, must be in same directory)
-:map <silent> <Leader>j :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
