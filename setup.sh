@@ -26,6 +26,9 @@ popd &>/dev/null
 uname_out="$(uname)"
 
 if [[ "${uname_out}" == "Linux" ]]; then
+    # Pugets are running Ubuntu 18.04, so the apt repositories available generally have very old versions of software.
+    # Instead, try and either add new repositories or download later releases and install them.
+
     vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
     min_vim_version="9.0"
     printf -v versions '%s\n%s' "$vim_version" "$min_vim_version"
