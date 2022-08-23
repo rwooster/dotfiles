@@ -52,7 +52,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 autocmd CursorMoved * silent call CocActionAsync('highlight')
 
 "" Mapping for running a CodeAction
-"nmap <silent> ma <Plug>(coc-codeaction-selected)<CR>
+nmap <silent> <Leader>a <Plug>(coc-codeaction-selected)<CR>
 
 "" Mapping for GoTo Definition/Declaration
 nmap <silent> <Leader>g <Plug>(coc-definition)
