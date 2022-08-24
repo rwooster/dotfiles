@@ -93,6 +93,9 @@ if [[ "${uname_out}" == "Linux" ]]; then
       sudo apt-get install xclip
     fi
 
+    sudo apt-get install fonts-inconsolata -y
+    sudo fc-cache -fv
+
 else
     if ! brew --version &>/dev/null; then
       # Install homebrew.
