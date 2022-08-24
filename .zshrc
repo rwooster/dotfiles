@@ -32,7 +32,7 @@ COLOR_USR=$'%F{243}'
 COLOR_DIR=$'%F{197}'
 COLOR_GIT=$'%F{39}'
 setopt PROMPT_SUBST
-export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%6~ ${COLOR_GIT}$(__git_ps1 "(%s)")${COLOR_DEF}$ '
+export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%3~ ${COLOR_GIT}$(__git_ps1 "(%s)")${COLOR_DEF}$ '
 
 # Set driving variables
 export BAZEL_ENABLE_DOCKER_SANDBOX=true
