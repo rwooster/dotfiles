@@ -69,6 +69,11 @@ if [[ "${uname_out}" == "Linux" ]]; then
       git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
       ~/.fzf/install
     fi
+
+    if ! xclip -h &>/dev/null; then
+      sudo apt-get install xclip
+    fi
+
 else
     if ! brew --version &>/dev/null; then
       # Install homebrew.

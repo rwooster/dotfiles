@@ -47,6 +47,8 @@ alias vi="vim"
 alias v="vim"
 alias gitfix='git commit --amend --no-edit'
 alias ls="ls --color=auto"
+# Emulate macos version
+alias pbcopy="xclip -sel clip"
 
 # Configure fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
