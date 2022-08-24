@@ -4,8 +4,12 @@ set -euo pipefail
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 
 if ! zsh --version &>/dev/null; then
-  apt get install zsh
-  sudo chsh $(which zsh)
+  sudo apt-get install -y zsh
+fi
+
+is_zsh=$(echo $SHELL | grep zsh)
+if [ -z "${is_zsh}" ]; then
+  chsh -s $(which zsh) ${USER}
 fi
 
 pushd ~ &>/dev/null
@@ -29,26 +33,41 @@ if [[ "${uname_out}" == "Linux" ]]; then
     # Pugets are running Ubuntu 18.04, so the apt repositories available generally have very old versions of software.
     # Instead, try and either add new repositories or download later releases and install them.
 
-    vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
-    min_vim_version="9.0"
-    printf -v versions '%s\n%s' "$vim_version" "$min_vim_version"
-    if [[ ${vim_version} != ${min_vim_version} &&
-          $versions = "$(sort -V <<< "$versions")" ]]; then
+    need_vim_install=false
+    if ! vim --version &>/dev/null; then
+      need_vim_install=true
+    else
+      vim_version=$(vim --version | sed -n 1p | cut -d ' ' -f '5')
+      min_vim_version="9.0"
+      printf -v versions '%s\n%s' "$vim_version" "$min_vim_version"
+      if [[ ${vim_version} != ${min_vim_version} &&
+            $versions = "$(sort -V <<< "$versions")" ]]; then
+        need_vim_install=true
+      fi
+    fi
+
+    if ${need_vim_install}; then
       sudo add-apt-repository ppa:jonathonf/vim
       sudo apt update
-      sudo apt install vim
+      sudo apt install -y vim
     fi
     
     if ! gh --version &>/dev/null; then
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
       sudo apt-add-repository https://cli.github.com/packages
       # github cli tools
-      sudo apt install gh
+      sudo apt install -y gh
+    fi
+
+    if ! curl --version &>/dev/null; then
+      sudo apt install -y curl
     fi
 
     if ! node --version &>/dev/null; then
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-      source ~/.zshrc
+
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
       nvm install 16
       nvm use 16
     fi
