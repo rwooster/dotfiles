@@ -5,7 +5,7 @@ EDITOR=vim
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
-setopt appendhistory autocd extendedglob nomatch 
+setopt share_history autocd extendedglob nomatch
 setopt NO_AUTOLIST BASH_AUTOLIST NO_MENUCOMPLETE
 setopt noEXTENDED_GLOB
 unsetopt beep
@@ -52,12 +52,24 @@ alias pbcopy="xclip -sel clip"
 
 # Configure fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always'
+export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always --exclude bin/'
 # This lets the fd colors work. This can be slow, remove this if fzf seems to start lagging.
 export FZF_DEFAULT_OPTS="--ansi"
-export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always'
+export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always --exclude bin/'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
+# - The first argument to the function ($1) is the base path to start traversal
+_fzf_compgen_path() {
+  fd --follow --color=always --exclude bin/ . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --follow --color=always --exclude bin/ --type d  . "$1"
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=$PATH:/home/wpnauser/.arene/bin
+export ARENE_USE_BACKEND_SERVICE=true

@@ -93,6 +93,10 @@ if [[ "${uname_out}" == "Linux" ]]; then
       sudo apt-get install xclip
     fi
 
+    if ! tmux -h &>/dev/null; then
+      sudo apt-get install tmux -y
+    fi
+
     sudo apt-get install fonts-inconsolata -y
     sudo fc-cache -fv
 

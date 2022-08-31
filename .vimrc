@@ -114,13 +114,16 @@ set laststatus=2 "always show the status line (vim option)
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \   'left': [ [ 'paste' ],
+      \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+set noshowmode " Hide showing the mode changes in vim command line
+set noshowcmd  " Hide display of last command
 
 "Fugutive OPTIONS
 nmap <silent> <leader>q :cnext<CR>
