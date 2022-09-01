@@ -21,6 +21,7 @@ Plug 'https://github.com/brooth/far.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 
@@ -34,6 +35,10 @@ if empty(glob('~/.config/coc/extensions/node_modules/coc-clangd'))
 endif
 
 "LSP / coc.nvim OPTIONS"
+"Transparent cursor breaks with CocList/coc-references when exiting with <C-c> instead of Esc.
+"https://github.com/neoclide/coc.nvim/issues/1775
+let g:coc_disable_transparent_cursor = 1
+
 " Use tab for trigger completion with characters ahead and navigate.
 
 " Used to check if normal tab should be inserted, rather than triggering autocomplete.
@@ -128,6 +133,16 @@ set noshowcmd  " Hide display of last command
 "Fugutive OPTIONS
 nmap <silent> <leader>q :cnext<CR>
 nmap <silent> <leader>p :cprev<CR>
+
+"" vim-clang-format
+"" Set style
+let g:clang_format#detect_style_file = 1
+
+"" Manually select specific clang-format version
+let g:clang_format#command = "/opt/tri/llvm/11.1.0/bin/clang-format"
+
+"" Turn on clang-format on buffer write by default
+let g:clang_format#auto_format = 1
 
 
 " Custom Functions
@@ -227,6 +242,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Save window view when changing between buffers
 autocmd! BufWinLeave * let b:winview = winsaveview()
 autocmd! BufWinEnter * if exists('b:winview') | call winrestview(b:winview) | unlet b:winview
+
+" TODO: Integrate this with coc plugin
+"autocmd BufWritePost *.{cc,h} execute 'silent !~/driving/src/os_image/docker_run.py ~/driving/src/clang_format.sh %:p' | edit
 
 " move vertically by visual line
 nnoremap <silent> j gj

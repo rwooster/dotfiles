@@ -43,12 +43,15 @@ export PATH=$PATH:/home/ryanwooster/.arene/bin
 # Set aliases
 # TODO: Move these to a separate file.
 # Also should port over some of the useful functions from the bash config as needed.
+export DRIVING_ROOT="/home/wpnauser/driving"
 alias vi="vim"
 alias v="vim"
 alias gitfix='git commit --amend --no-edit'
 alias ls="ls --color=auto"
 # Emulate macos version
 alias pbcopy="xclip -sel clip"
+alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
+
 
 # Configure fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
