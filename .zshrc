@@ -51,7 +51,10 @@ alias ls="ls --color=auto"
 # Emulate macos version
 alias pbcopy="xclip -sel clip"
 alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
-
+alias puget="wpnauser@10.120.20.205"
+alias sshpuget="ssh wpnauser@10.120.20.205"
+alias ec2="ubuntu@10.108.22.144"
+alias sshec2="ssh -i '~/Documents/rwooster.pem' ubuntu@10.108.22.144"
 
 # Configure fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
