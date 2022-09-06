@@ -39,6 +39,9 @@ endif
 "https://github.com/neoclide/coc.nvim/issues/1775
 let g:coc_disable_transparent_cursor = 1
 
+"Limit number  of lines in autocomplete window.
+set pumheight=5
+
 " Use tab for trigger completion with characters ahead and navigate.
 
 " Used to check if normal tab should be inserted, rather than triggering autocomplete.
@@ -66,7 +69,7 @@ nmap <silent> <Leader>g <Plug>(coc-definition)
 "nmap <silent> mr <Plug>(coc-references)<CR>
 
 "" Mapping for Rename
-"nmap <silent> mR <Plug>(coc-rename)
+nmap <silent> <Leader>r <Plug>(coc-rename)
 
 "" Mapping for showing Implementation of Interface
 "nmap <silent> mi <Plug>(coc-implementation)
