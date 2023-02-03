@@ -5,3 +5,7 @@
 	default = simple
 [core]
 	editor = vim
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false

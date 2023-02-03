@@ -38,7 +38,6 @@ export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%3~ ${COLOR_GIT}$(__git_ps1 "(%s)")${C
 export BAZEL_ENABLE_DOCKER_SANDBOX=true
 export DRIVING_BAZEL_REMOTE_CACHE=s3
 export DISPLAY=:1
-export PATH=$PATH:/home/ryanwooster/.arene/bin
 
 # Set aliases
 # TODO: Move these to a separate file.
@@ -55,6 +54,12 @@ alias puget="wpnauser@10.120.20.205"
 alias sshpuget="ssh wpnauser@10.120.20.205"
 alias ec2="ubuntu@10.108.22.144"
 alias sshec2="ssh -i '~/Documents/rwooster.pem' ubuntu@10.108.22.144"
+
+buildifier() {
+  pushd ${DRIVING_ROOT}
+  ./src/bazel-bin/tools/buildifier_detail --mode="fix" --lint="fix" --warnings=native-py $(git diff master --name-only | rg BUILD)
+  popd
+}
 
 # Configure fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -74,8 +79,17 @@ _fzf_compgen_dir() {
   fd --follow --color=always --exclude bin/ --type d  . "$1"
 }
 
+delete-branches() {
+  git branch |
+    grep --invert-match '\*' |
+    cut -c 3- |
+    fzf --multi --preview="git log {}" |
+    xargs --no-run-if-empty git branch --delete --force
+}
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$PATH:/home/wpnauser/.arene/bin
 export ARENE_USE_BACKEND_SERVICE=true
+export PATH=$PATH:/home/wpnauser/.local/bin
