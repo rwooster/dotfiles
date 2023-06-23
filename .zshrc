@@ -89,11 +89,23 @@ _fzf_compgen_dir() {
 }
 
 checkout() {
-  git branch |
-    rg --invert-match '\*' |
-    cut -c 3- |
-    fzf --preview="git log {}" |
-    xargs --no-run-if-empty git checkout
+  uname_out="$(uname)"
+
+  if [[ "${uname_out}" == "Linux" ]]; then
+    git branch |
+      rg --invert-match '\*' |
+      cut -c 3- |
+      fzf --preview="git log {}" |
+      xargs --no-run-if-empty git checkout
+  else
+    # On MacOS, xargs default behavior is `--no-run-if-empty`,
+    # and that parameter is not accepted.
+    git branch |
+      rg --invert-match '\*' |
+      cut -c 3- |
+      fzf --preview="git log {}" |
+      xargs git checkout
+  fi
 }
 alias ch="checkout"
 
