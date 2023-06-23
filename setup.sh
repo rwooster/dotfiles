@@ -116,6 +116,7 @@ else
     brew install rg
     brew install fzf
     brew install fd
+    brew install tmux
 
     brew install --cask iterm2
 
