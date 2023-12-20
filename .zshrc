@@ -150,6 +150,11 @@ pr-checkout() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s`
+fi
+
 export PATH=$PATH:/home/wpnauser/.arene/bin
 export ARENE_USE_BACKEND_SERVICE=true
 export PATH=$PATH:/home/wpnauser/.local/bin
