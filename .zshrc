@@ -155,6 +155,10 @@ if [ -x /usr/libexec/path_helper ]; then
   eval `/usr/libexec/path_helper -s`
 fi
 
+# Add homebrew to path
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 export PATH=$PATH:/home/wpnauser/.arene/bin
 export ARENE_USE_BACKEND_SERVICE=true
 export PATH=$PATH:/home/wpnauser/.local/bin
+

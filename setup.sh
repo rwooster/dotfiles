@@ -106,6 +106,10 @@ else
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
+    # Add homebrew to path
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/ryan.wooster/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
     # Some of these may come installed, but homebrew will update them.
     # Homebrew generally has more up-to-date versions of software.
     brew install bash
