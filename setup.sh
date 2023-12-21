@@ -129,4 +129,5 @@ else
 
     brew tap homebrew/cask-fonts
     brew install font-inconsolata
+    brew install llvm
 fi
