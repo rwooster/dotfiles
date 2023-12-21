@@ -161,4 +161,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH=$PATH:/home/wpnauser/.arene/bin
 export ARENE_USE_BACKEND_SERVICE=true
 export PATH=$PATH:/home/wpnauser/.local/bin
-
+export PATH=$PATH:/Users/ryan.wooster/.local/bin

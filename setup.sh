@@ -118,7 +118,10 @@ else
     brew install node
     brew install rsync
     brew install rg
+
     brew install fzf
+    ln -s ${SCRIPT_DIR}/macos.fzf.zsh .fzf.zsh
+
     brew install fd
     brew install tmux
 
