@@ -14,6 +14,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'https://github.com/altercation/vim-colors-solarized'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim' " FZF keybindings
 Plug 'qpkorr/vim-bufkill'
 "Plug 'https://github.com/vim-scripts/taglist.vim'
