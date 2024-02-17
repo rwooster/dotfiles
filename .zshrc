@@ -25,7 +25,9 @@ bindkey "^R" history-incremental-pattern-search-backward
 
 # Set prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
-source ~/dotfiles/.git-prompt.sh
+mydir=${0:A:h}
+echo "my dir: ${mydir}"
+source ${mydir}/.git-prompt.sh
 
 COLOR_DEF=$'%f'
 COLOR_USR=$'%F{243}'
