@@ -1,5 +1,6 @@
 {
   "suggest.enablePreselect": false,
   "suggest.noselect": true,
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/16.0.2/clangd_16.0.2/bin/clangd"
+  "inlayHint.display": false,
+  "clangd.disableSnippetCompletion": true,
 }

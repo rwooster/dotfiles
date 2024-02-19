@@ -48,7 +48,7 @@ alias v="vim"
 alias gitfix='git commit --amend --no-edit'
 alias ls="ls --color=auto"
 # Emulate macos version
-alias pbcopy="xclip -sel clip"
+#alias pbcopy="xclip -sel clip"
 alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
 alias puget="wpnauser@172.20.64.205"
 alias sshpuget="ssh wpnauser@172.20.64.205"
@@ -165,3 +165,9 @@ export PATH=$PATH:/Users/ryan.wooster/.local/bin
 
 # Set homebrew installed llvm as the default.
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ryan.wooster/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryan.wooster/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ryan.wooster/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryan.wooster/google-cloud-sdk/completion.zsh.inc'; fi
