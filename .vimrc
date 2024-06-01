@@ -27,8 +27,8 @@ call plug#end()
 
 "Setup common coc plugins
 if empty(glob('~/.config/coc/extensions/node_modules/coc-clangd'))
-  autocmd VimEnter * CocInstall coc-clangd
   autocmd VimEnter * CocCommand clangd.install
+  autocmd VimEnter * CocInstall coc-clangd
   autocmd VimEnter * CocInstall coc-json
   autocmd VimEnter * CocInstall coc-python
   autocmd VimEnter * CocInstall coc-sh
@@ -79,6 +79,8 @@ nmap <silent> <Leader>t <Plug>(coc-type-definition)
 
 " Leader j swaps between header and src file (*.h, *.cc, must be in same directory)
 :nmap <silent> <Leader>j :CocCommand clangd.switchSourceHeader<CR>
+
+:nmap <silent> <Leader>i ::CocCommand document.toggleInlayHint<CR>
 
 
 "NERDTree OPTIONS

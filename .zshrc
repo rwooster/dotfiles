@@ -25,9 +25,13 @@ bindkey "^R" history-incremental-pattern-search-backward
 
 # Set prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
-mydir=${0:A:h}
-echo "my dir: ${mydir}"
-source ${mydir}/.git-prompt.sh
+
+# https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+this=${(%):-%x}
+dotfiles_dir="${this:A:h}"
+home_dir=${this:a:h}
+
+source ${dotfiles_dir}/.git-prompt.sh
 
 COLOR_DEF=$'%f'
 COLOR_USR=$'%F{243}'
@@ -154,4 +158,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=$PATH:/home/wpnauser/.arene/bin
 export ARENE_USE_BACKEND_SERVICE=true
-export PATH=$PATH:/home/wpnauser/.local/bin
+export PATH=$PATH:${home_dir}/.local/bin
