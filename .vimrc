@@ -27,17 +27,20 @@ call plug#end()
 
 "Setup common coc plugins
 if empty(glob('~/.config/coc/extensions/node_modules/coc-clangd'))
-  autocmd VimEnter * CocInstall coc-clangd
   autocmd VimEnter * CocCommand clangd.install
   autocmd VimEnter * CocInstall coc-json
   autocmd VimEnter * CocInstall coc-python
   autocmd VimEnter * CocInstall coc-sh
 endif
 
+" Manually run this command after opening a CPP file:
+" CocInstall coc-clangd
+
 "LSP / coc.nvim OPTIONS"
 "Transparent cursor breaks with CocList/coc-references when exiting with <C-c> instead of Esc.
 "https://github.com/neoclide/coc.nvim/issues/1775
 let g:coc_disable_transparent_cursor = 1
+"let g:coc_start_at_startup=0
 
 "Limit number  of lines in autocomplete window.
 set pumheight=5
@@ -145,7 +148,7 @@ let g:clang_format#detect_style_file = 1
 let g:clang_format#command = "/opt/tri/llvm/11.1.0/bin/clang-format"
 
 "" Turn on clang-format on buffer write by default
-let g:clang_format#auto_format = 1
+"let g:clang_format#auto_format = 1
 
 
 " Custom Functions
@@ -221,6 +224,7 @@ set t_Co=256
 
 "set colorscheme
 set background=dark
+"set background=light
 let g:solarized_termcolors=256
 color solarized
 

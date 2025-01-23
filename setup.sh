@@ -1,18 +1,25 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "Running setup"
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 
+echo "if setup"
 if ! zsh --version &>/dev/null; then
+  echo "Installing zsh"
   sudo apt-get install -y zsh
 fi
 
+echo "if2 setup"
 is_zsh=$(echo $SHELL | grep zsh)
 if [ -z "${is_zsh}" ]; then
+  echo "Changing shell to zsh"
   chsh -s $(which zsh) ${USER}
 fi
+echo "if3 setup"
 
 pushd ~ &>/dev/null
+echo "Linking dotfiles"
 rm -f .vimrc .tmux.conf .zshrc .gitconfig
 ln -s ${SCRIPT_DIR}/.vimrc .vimrc
 ln -s ${SCRIPT_DIR}/.tmux.conf .tmux.conf

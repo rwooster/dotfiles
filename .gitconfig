@@ -9,3 +9,5 @@
 	prompt = false
 [mergetool]
 	prompt = false
+[alias]
+       trigger = !git commit --allow-empty -m \"trigger\" && git push

@@ -42,7 +42,7 @@ export DISPLAY=:1
 # Set aliases
 # TODO: Move these to a separate file.
 # Also should port over some of the useful functions from the bash config as needed.
-export DRIVING_ROOT="/home/wpnauser/driving"
+export DRIVING_ROOT="/home/ryan-wooster/driving"
 alias vi="vim"
 alias v="vim"
 alias gitfix='git commit --amend --no-edit'
@@ -50,19 +50,6 @@ alias ls="ls --color=auto"
 # Emulate macos version
 alias pbcopy="xclip -sel clip"
 alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
-alias puget="wpnauser@172.20.64.205"
-alias sshpuget="ssh wpnauser@172.20.64.205"
-alias dropbear="ssh root@172.20.64.205 -p 222"
-alias ec2="ubuntu@10.108.22.144"
-alias sshec2="ssh -i '~/Documents/rwooster.pem' ubuntu@10.108.22.144"
-alias cfmt="/usr/local/bin/git-clang-format --style=file:/Users/ryan.wooster/repos/mca/bazel_tooling/.clang-format"
-
-scppuget() {
-  scp "${1}" "wpnauser@172.20.64.205:${2}"
-}
-scpfrompuget() {
-  scp "wpnauser@172.20.64.205:${1}" "${2}" 
-}
 
 buildifier() {
   pushd ${DRIVING_ROOT}
@@ -150,15 +137,8 @@ pr-checkout() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH=/home/ryan-wooster/.local/bin:$PATH
+export PATH=$PATH:/opt/tri/llvm/11.1.0/bin
 
-if [ -x /usr/libexec/path_helper ]; then
-  eval `/usr/libexec/path_helper -s`
-fi
-
-# Add homebrew to path
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-export PATH=$PATH:/home/wpnauser/.arene/bin
-export ARENE_USE_BACKEND_SERVICE=true
-export PATH=$PATH:/home/wpnauser/.local/bin
-export PATH=$PATH:/Users/ryan.wooster/.local/bin
+if [ -e /home/ryan-wooster/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ryan-wooster/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+eval "$(/home/ryan-wooster/.nix-profile/bin/direnv hook zsh)"
