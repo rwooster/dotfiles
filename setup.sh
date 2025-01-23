@@ -130,4 +130,7 @@ else
     brew tap homebrew/cask-fonts
     brew install font-inconsolata
     brew install llvm
+
+    # TODO: Test this
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi

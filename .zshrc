@@ -50,11 +50,7 @@ alias ls="ls --color=auto"
 # Emulate macos version
 #alias pbcopy="xclip -sel clip"
 alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
-alias puget="wpnauser@172.20.64.205"
-alias sshpuget="ssh wpnauser@172.20.64.205"
 alias dropbear="ssh root@172.20.64.205 -p 222"
-alias ec2="ubuntu@10.108.22.144"
-alias sshec2="ssh -i '~/Documents/rwooster.pem' ubuntu@10.108.22.144"
 alias cfmt="/usr/local/bin/git-clang-format --style=file:/Users/ryan.wooster/repos/mca/bazel_tooling/.clang-format"
 
 scppuget() {

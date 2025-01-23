@@ -224,6 +224,18 @@ set noswapfile
 "set 256 color mode
 set t_Co=256
 
+function! ColorToggle()
+	if(&background == "dark")
+		set background=light
+	else
+		set background=dark
+    hi Normal ctermbg=None
+    hi NonText ctermbg=None
+	endif
+endfunc
+" use leader c to toggle light/dark colorscheme
+nnoremap <silent> <Leader>c :call ColorToggle()<cr>
+
 "set colorscheme
 set background=dark
 let g:solarized_termcolors=256
