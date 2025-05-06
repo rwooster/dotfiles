@@ -110,13 +110,19 @@ else
     # Some of these may come installed, but homebrew will update them.
     # Homebrew generally has more up-to-date versions of software.
     brew install bash
-    brew install neovim
     brew install gh
     brew install rsync
     brew install rg
 
+
+    mkdir -p ~/.config/
+    ln -s ${SCRIPT_DIR}/nvim ~/.config/nvim
+    brew install neovim
+
     brew install fzf
-    ln -s ${SCRIPT_DIR}/macos.fzf.zsh .fzf.zsh
+    if [ ! -f .fzf.zsh ]; then
+      ln -s ${SCRIPT_DIR}/macos.fzf.zsh .fzf.zsh
+    fi
 
     brew install fd
     brew install tmux
@@ -125,6 +131,8 @@ else
 
     brew install llvm
 
-    # TODO: Test this
+    brew search '/font-.*-nerd-font/' | awk '{ print $1 }' | xargs -I{} brew install --cask {} || true
+
+    if [ ! -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
