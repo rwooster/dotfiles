@@ -139,6 +139,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH=/home/ryan-wooster/.local/bin:$PATH
 export PATH=$PATH:/opt/tri/llvm/11.1.0/bin
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 if [ -e /home/ryan-wooster/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ryan-wooster/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 eval "$(/home/ryan-wooster/.nix-profile/bin/direnv hook zsh)"
