@@ -23,11 +23,13 @@ compinit
 # Fix ctrl+R for history reverse search
 bindkey "^R" history-incremental-pattern-search-backward
 
+# https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+this=${(%):-%x}
+dotfiles_dir="${this:A:h}"
+home_dir=${this:a:h}
+
 # Set prompt
-export GIT_PS1_SHOWDIRTYSTATE=true
-mydir=${0:A:h}
-echo "my dir: ${mydir}"
-source ${mydir}/.git-prompt.sh
+source ${dotfiles_dir}/.git-prompt.sh
 
 COLOR_DEF=$'%f'
 COLOR_USR=$'%F{243}'
