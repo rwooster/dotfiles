@@ -4,15 +4,17 @@ TERM = "xterm-256color"
 [window]
 padding.x = 10
 padding.y = 10
+dynamic_padding = false
 
-decorations = "Buttonless"
+decorations = "None"
+startup_mode = "Maximized"
 
-opacity = 0.7
+opacity = 0.9
 blur = true
 
 [font]
 normal.family = "Inconsolata"
-size = 20
+size = 22
 
 [general]
 import = [
