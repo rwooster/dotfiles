@@ -100,6 +100,14 @@ if [[ "${uname_out}" == "Linux" ]]; then
     sudo apt-get install fonts-inconsolata -y
     sudo fc-cache -fv
 
+    sudo add-apt-repository ppa:aslatter/ppa
+    sudo apt update
+    sudo apt-get install alacritty
+
+    # We use Alacritty's default Linux config directory as our storage location here.
+    mkdir -p ~/.config/alacritty/themes
+    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes --depth=1
+
 else
     if ! brew --version &>/dev/null; then
       # Install homebrew.
