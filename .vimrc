@@ -12,6 +12,7 @@ endif
 
 call plug#begin('~/.vim/bundle')
 Plug 'https://github.com/altercation/vim-colors-solarized'
+Plug 'https://github.com/gruvbox-community/gruvbox'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/junegunn/fzf.vim' " FZF keybindings
@@ -123,7 +124,7 @@ let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 set laststatus=2 "always show the status line (vim option)
 " Requires fugitive to also be installed
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -225,8 +226,8 @@ set t_Co=256
 "set colorscheme
 set background=dark
 "set background=light
-let g:solarized_termcolors=256
-color solarized
+"let g:solarized_termcolors=256
+color gruvbox
 
 "set background color to transparent
 hi Normal ctermbg=None
