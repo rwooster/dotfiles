@@ -6,15 +6,15 @@ padding.x = 10
 padding.y = 10
 dynamic_padding = false
 
-decorations = "None"
-startup_mode = "Maximized"
+#decorations = "None"
+#startup_mode = "Maximized"
 
 opacity = 0.9
-blur = true
+#blur = true
 
 [font]
-normal.family = "Inconsolata"
-size = 22
+normal.family = "FiraCode Nerd Font Light"
+size = 20
 
 [general]
 import = [

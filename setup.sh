@@ -13,11 +13,14 @@ if [ -z "${is_zsh}" ]; then
 fi
 
 pushd ~ &>/dev/null
-rm -f .vimrc .tmux.conf .zshrc .gitconfig
+rm -f .vimrc .tmux.conf .zshrc .gitconfig ~/.config/alacritty/alacritty.toml
 ln -s ${SCRIPT_DIR}/.vimrc .vimrc
 ln -s ${SCRIPT_DIR}/.tmux.conf .tmux.conf
 ln -s ${SCRIPT_DIR}/.zshrc .zshrc
 ln -s ${SCRIPT_DIR}/.gitconfig .gitconfig
+
+mkdir -p .config/alacritty
+ln -s ${SCRIPT_DIR}/alacritty.toml .config/alacritty/alacritty.toml
 
 mkdir -p .vim/
 pushd .vim/ &>/dev/null
@@ -128,17 +131,37 @@ else
     brew install rg
 
     brew install fzf
+    rm .fzf.zsh
     ln -s ${SCRIPT_DIR}/macos.fzf.zsh .fzf.zsh
 
     brew install fd
     brew install tmux
 
-    brew install --cask iterm2
+    #brew install --cask iterm2
 
-    brew tap homebrew/cask-fonts
-    brew install font-inconsolata
+		fonts_list=(
+			font-fira-mono-nerd-font
+			font-inconsolata-go-nerd-font
+			font-inconsolata-lgc-nerd-font
+			font-inconsolata-nerd-font
+			font-fantasque-sans-mono-nerd-font
+			font-fira-code-nerd-font
+			font-hack-nerd-font
+			font-jetbrains-mono-nerd-font
+		)
+
+		for font in "${fonts_list[@]}"
+		do
+			brew install --cask "$font"
+		done
+
+    #brew install font-inconsolata
     brew install llvm
     brew install alacritty
+
+    # We use Alacritty's default Linux config directory as our storage location here.
+    mkdir -p ~/.config/alacritty/themes
+    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes --depth=1
 
     # TODO: Test this
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
