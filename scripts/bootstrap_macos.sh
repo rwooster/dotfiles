@@ -15,7 +15,7 @@ fi
 
 # Checkout and install dotfiles
 if [ ! -d "$HOME/repos/dotfiles" ]; then
-    git clone git@github.com:rwooster/dotfiles.git "$HOME/repos/dotfiles"
+    git clone -b main git@github.com:rwooster/dotfiles.git "$HOME/repos/dotfiles"
 fi
 
 ./repos/dotfiles/scripts/setup_macos.sh
