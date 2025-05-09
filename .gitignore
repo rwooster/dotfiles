@@ -2,4 +2,4 @@
 # Attempt in plugins.zsh did not succeed.
 *.zcompdump
 
-lazy-lock.json
+*lazy-lock.json
