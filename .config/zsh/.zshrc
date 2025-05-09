@@ -18,9 +18,9 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-source plugins.zsh
-source settings.zsh
-source bindings.zsh
-source aliases.zsh
-source styling.zsh
-source integrations.zsh
+source "${ZDOTDIR}/plugins.zsh"
+source "${ZDOTDIR}/settings.zsh"
+source "${ZDOTDIR}/bindings.zsh"
+source "${ZDOTDIR}/aliases.zsh"
+source "${ZDOTDIR}/styling.zsh"
+source "${ZDOTDIR}/integrations.zsh"
