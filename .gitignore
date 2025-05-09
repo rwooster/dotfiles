@@ -1,3 +1,5 @@
 #TODO: Figure out how to stop this from living in dotfiles...
 # Attempt in plugins.zsh did not succeed.
 *.zcompdump
+
+lazy-lock.json
