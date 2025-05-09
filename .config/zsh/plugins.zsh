@@ -32,6 +32,8 @@ zinit light zsh-users/zsh-autosuggestions
 ## zsh-completions
 # Load completions 
 autoload -Uz compinit && compinit
+ZDUMP_LOCATION="${XDG_CACHE_HOME:-$HOME/.cache}"
+compinit -d "${ZDUMP_LOCATION}"
 
 ## Powerline10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
