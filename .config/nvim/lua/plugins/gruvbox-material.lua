@@ -3,18 +3,14 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
-    local search_flip_search_opts = nil
-    local search_flip_inc_search_opts = nil
-    local search_flip_flipped = false
-
     require("gruvbox-material").setup({
-      constrast = "soft",
+      constrast = "hard",
 
       background = {
         transparent = true,
       },
       customize = function(group, opts)
-        local colors = require("gruvbox-material.colors").get(vim.o.background, "soft")
+        local colors = require("gruvbox-material.colors").get(vim.o.background, "hard")
         -- print(vim.inspect(colors))
 
         if group == "CursorLineNr" then
