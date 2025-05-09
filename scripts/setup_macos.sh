@@ -13,8 +13,8 @@ if ! which brew; then
 fi
 
 # Install base prerequisites
-brew install git
-brew install stow
+brew install git -q
+brew install stow -q
 
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 DOTFILES_DIR="${SCRIPT_DIR}/../"
@@ -22,3 +22,9 @@ DOTFILES_DIR="${SCRIPT_DIR}/../"
 stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
 
 brew bundle check || brew bundle install
+
+# We use Alacritty's default Linux config directory as our storage location here.
+if [ -d ~/.config/alacritty/themes ]; then
+    mkdir -p ~/.config/alacritty/themes
+    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes --depth=1
+fi

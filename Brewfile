@@ -10,6 +10,8 @@ brew "tmux"
 brew "git"
 brew "stow"
 
+cask "alacritty"
+
 cask "font-fira-code-nerd-font"
 cask "font-fira-mono-nerd-font"
 cask "font-inconsolata-nerd-font"
