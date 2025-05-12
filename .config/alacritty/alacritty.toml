@@ -2,12 +2,12 @@
 TERM = "xterm-256color"
 
 [window]
-padding.x = 10
-padding.y = 10
+padding.x = 3
+padding.y = 3
 dynamic_padding = false
 
 opacity = 0.95
-decorations="buttonless"
+decorations="None"
 startup_mode="Maximized"
 
 [font]

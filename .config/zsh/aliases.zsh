@@ -1,15 +1,19 @@
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias tm="tmux"
 alias ls="ls --color=auto"
 alias ll="ls -la"
 alias gitfix='git commit --amend --no-edit'
 
 # Quickly open config files
-alias al="nvim ~/.config/zsh/aliases.zsh"
-alias rc="nvim ~/.config/zsh/.zshrc"
-alias term="nvim ~/.config/alacritty/alacritty.toml"
-alias load="source ~/.config/zsh/.zshrc"
+alias zal="nvim ~/.config/zsh/aliases.zsh"
+alias zrc="nvim ~/.config/zsh/.zshrc"
+alias tmc="nvim ~/.config/tmux/tmux.conf"
+alias alc="nvim ~/.config/alacritty/alacritty.toml"
+
+# Reload the .zsh config file
+alias rld="source ~/.config/zsh/.zshrc"
 
 # Useful functions
 xargs_no_run_if_empty() {
