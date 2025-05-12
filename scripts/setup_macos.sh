@@ -21,7 +21,7 @@ DOTFILES_DIR="${SCRIPT_DIR}/../"
 
 stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
 
-brew bundle check || brew bundle install
+brew bundle check --global || brew bundle install --global
 
 # We use Alacritty's default Linux config directory as our storage location here.
 if [ ! -d ${HOME}/.config/alacritty/themes ]; then
