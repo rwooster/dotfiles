@@ -24,7 +24,7 @@ stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
 brew bundle check || brew bundle install
 
 # We use Alacritty's default Linux config directory as our storage location here.
-if [ -d ~/.config/alacritty/themes ]; then
-    mkdir -p ~/.config/alacritty/themes
+if [ ! -d ${HOME}/.config/alacritty/themes ]; then
+    mkdir -p ${HOME}/.config/alacritty/themes
     git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes --depth=1
 fi

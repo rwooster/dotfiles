@@ -3,3 +3,4 @@
 *.zcompdump
 
 *lazy-lock.json
+.config/alacritty/themes/
