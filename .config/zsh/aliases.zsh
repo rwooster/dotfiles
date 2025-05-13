@@ -11,6 +11,7 @@ alias zal="nvim ~/.config/zsh/aliases.zsh"
 alias zrc="nvim ~/.config/zsh/.zshrc"
 alias tmc="nvim ~/.config/tmux/tmux.conf"
 alias alc="nvim ~/.config/alacritty/alacritty.toml"
+alias vrc="nvim ~/.config/nvim/init.lua"
 
 # Reload the .zsh config file
 alias rld="source ~/.config/zsh/.zshrc"

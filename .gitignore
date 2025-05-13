@@ -2,5 +2,4 @@
 # Attempt in plugins.zsh did not succeed.
 *.zcompdump
 
-*lazy-lock.json
 .config/alacritty/themes/
