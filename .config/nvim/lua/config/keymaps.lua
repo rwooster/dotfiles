@@ -23,6 +23,10 @@ vim.keymap.set("n", "<Leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear highligh
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Map build-in commenting keybind to the vim+nerdcommenter mapping.
+vim.keymap.set("n", "<Leader>cc", "gcc", { remap = true, desc = "[C]ode [C]omment" })
+vim.keymap.set("v", "<Leader>cc", "gc", { remap = true, desc = "[C]ode [C]omment" })
+
 --vim.keymap.set("n", "gl", function()
 --vim.diagnostic.open_float()
 --end, { desc = "Open Diagnostics in Float" })
