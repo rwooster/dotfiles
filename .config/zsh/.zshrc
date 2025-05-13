@@ -18,6 +18,11 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Add Mason-nvim installed binaries to path
+if [[ -d "${XDG_DATA_HOME}/nvim/mason/bin" ]] then
+    export PATH="${XDG_DATA_HOME}/nvim/mason/bin:${PATH}"
+fi
+
 source "${ZDOTDIR}/plugins.zsh"
 source "${ZDOTDIR}/settings.zsh"
 source "${ZDOTDIR}/bindings.zsh"
