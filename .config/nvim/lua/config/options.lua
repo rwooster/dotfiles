@@ -53,13 +53,13 @@ vim.o.scrolloff = 5
 vim.o.autochdir = true
 
 -- Preview substitutions live
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank({timeout=300})
-  end,
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+    callback = function()
+        vim.hl.on_yank({ timeout = 300 })
+    end,
 })

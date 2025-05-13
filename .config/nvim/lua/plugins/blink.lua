@@ -4,7 +4,7 @@ return {
     -- use a release tag to download pre-built binaries
     version = "1.*",
     dependencies = {
-        'folke/lazydev.nvim',
+        "folke/lazydev.nvim",
     },
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
@@ -44,7 +44,7 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-            default = { "lsp", "path", "buffer", "lazydev"},
+            default = { "lsp", "path", "buffer", "lazydev" },
             providers = {
                 path = {
                     opts = {

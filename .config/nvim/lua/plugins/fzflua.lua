@@ -2,35 +2,37 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = { "echasnovski/mini.icons" },
     opts = {},
-    keys={
-        { 
+    keys = {
+        {
             "<leader>ff",
-            function() 
-                local fzf_lua = require('fzf-lua')
-                local path = require('fzf-lua.path')
+            function()
+                local fzf_lua = require("fzf-lua")
+                local path = require("fzf-lua.path")
                 -- Setting the second argument to true suppresses
                 -- warning if we aren't in a git repo
                 local git_root = path.git_root({}, true)
-                fzf_lua.files({cwd=git_root}) 
+                fzf_lua.files({ cwd = git_root })
             end,
-            desc="Find Files in project directory"
+            desc = "Find Files in project directory",
         },
-        { 
+        {
             "<leader>fg",
-            function() 
-                local fzf_lua = require('fzf-lua')
-                local path = require('fzf-lua.path')
+            function()
+                local fzf_lua = require("fzf-lua")
+                local path = require("fzf-lua.path")
                 -- Setting the second argument to true suppresses
                 -- warning if we aren't in a git repo
                 local git_root = path.git_root({}, true)
-                fzf_lua.live_grep({cwd=git_root}) 
+                fzf_lua.live_grep({ cwd = git_root })
             end,
-            desc="Find by grepping in project directory"
+            desc = "Find by grepping in project directory",
         },
-        { 
+        {
             "<leader>fc",
-            function() require('fzf-lua').files({cwd=vim.fn.stdpath("config")}) end,
-            desc="Find in neovim configuration"
+            function()
+                require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
+            end,
+            desc = "Find in neovim configuration",
         },
         {
             "<leader>fh",
@@ -95,5 +97,5 @@ return {
             end,
             desc = "[/] Live grep the current buffer",
         },
-    }
+    },
 }
