@@ -66,6 +66,7 @@ return {
     -- TODO: The light theme needs work
     -- AUTO CHANGE MARKER: LIGHT/DARK
     vim.opt.background = "dark"
+    vim.o.termguicolors = true
     vim.cmd.colorscheme("gruvbox-material")
   end,
 }
