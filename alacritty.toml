@@ -13,7 +13,8 @@ opacity = 0.97
 blur = true
 
 [font]
-normal.family = "Inconsolata"
+#normal.family = "Inconsolata"
+normal.family = "FiraCode Nerd Font Light"
 size = 22
 
 [general]

@@ -107,6 +107,13 @@ if [[ "${uname_out}" == "Linux" ]]; then
     sudo apt-get install fonts-inconsolata -y
     sudo fc-cache -fv
 
+    ## UNTESTED
+    mkdir ~/.fonts/
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
+    unzip FiraCode.zip -d ~/.fonts
+    fc-cache -fv
+
+
     sudo add-apt-repository ppa:aslatter/ppa
     sudo apt update
     sudo apt-get install alacritty
