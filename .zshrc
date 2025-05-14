@@ -47,6 +47,7 @@ alias vi="vim"
 alias v="vim"
 alias gitfix='git commit --amend --no-edit'
 alias ls="ls --color=auto"
+alias tmux="tmux -f ~/.config/tmux/tmux.conf"
 # Emulate macos version
 alias pbcopy="xclip -sel clip"
 alias dr="${DRIVING_ROOT}/src/os_image/docker_run.py"
