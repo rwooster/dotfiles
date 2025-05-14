@@ -13,6 +13,7 @@ endif
 call plug#begin('~/.vim/bundle')
 Plug 'https://github.com/altercation/vim-colors-solarized'
 Plug 'https://github.com/gruvbox-community/gruvbox'
+Plug 'https://github.com/sainnhe/gruvbox-material'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/junegunn/fzf.vim' " FZF keybindings
@@ -124,7 +125,7 @@ let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 set laststatus=2 "always show the status line (vim option)
 " Requires fugitive to also be installed
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -223,11 +224,19 @@ set noswapfile
 "set 256 color mode
 set t_Co=256
 
-"set colorscheme
 set background=dark
-"set background=light
-"let g:solarized_termcolors=256
-color gruvbox
+"""set background=light
+let g:solarized_termcolors=256
+colorscheme solarized
+"let g:gruvbox_contrast_dark="soft"
+"let g:gruvbox_contrast_light="soft"
+"let g:gruvbox_termcolors=256
+"colorscheme gruvbox
+
+"let g:gruvbox_material_disable_italic_comment = 0
+"let g:gruvbox_material_background = 'soft'
+"let g:gruvbox_material_better_performance = 1
+"colorscheme gruvbox-material
 
 "set background color to transparent
 hi Normal ctermbg=None

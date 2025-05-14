@@ -9,7 +9,7 @@ dynamic_padding = false
 decorations = "None"
 startup_mode = "Maximized"
 
-opacity = 0.9
+opacity = 0.97
 blur = true
 
 [font]
