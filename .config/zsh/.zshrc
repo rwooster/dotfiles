@@ -1,3 +1,8 @@
+# Make sure required env variables are set/updated.
+if [[ -f "~/.zshenv" ]] then
+    source ~/.zshenv
+fi
+
 ###
 ### Setup prompt
 ### 
@@ -9,9 +14,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-###
-### Homebrew setup
-### 
+# Setup PATH with extra directories
 
 # Add homebrew installed binaries to path
 if [[ -f "/opt/homebrew/bin/brew" ]] then
@@ -22,6 +25,8 @@ fi
 if [[ -d "${XDG_DATA_HOME}/nvim/mason/bin" ]] then
     export PATH="${XDG_DATA_HOME}/nvim/mason/bin:${PATH}"
 fi
+
+export PATH="${XDG_BIN_HOME}:${PATH}"
 
 source "${ZDOTDIR}/plugins.zsh"
 source "${ZDOTDIR}/settings.zsh"
