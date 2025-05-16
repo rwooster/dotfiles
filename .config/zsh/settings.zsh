@@ -2,8 +2,8 @@
 ### General settings
 ###
 
-VISUAL=nvim
-EDITOR=nvim
+export VISUAL=nvim
+export EDITOR=nvim
 
 # History
 HISTSIZE=100000

@@ -88,7 +88,7 @@ return {
             function()
                 require("fzf-lua").buffers()
             end,
-            desc = "[,] Find existing buffers",
+            desc = "[ ] Find existing buffers",
         },
         {
             "<leader>/",
