@@ -1,6 +1,6 @@
 # Make sure required env variables are set/updated.
-if [[ -f "~/.zshenv" ]] then
-    source ~/.zshenv
+if [[ -f "${HOME}/.zshenv" ]] then
+    source "${HOME}/.zshenv"
 fi
 
 ###
@@ -35,6 +35,6 @@ source "${ZDOTDIR}/aliases.zsh"
 source "${ZDOTDIR}/styling.zsh"
 source "${ZDOTDIR}/integrations.zsh"
 
-if [[ -f "~/.local_zshrc" ]] then
-    source "~/.local_zshrc"
+if [[ -f "${HOME}/.local_zshrc" ]] then
+    source "${HOME}/.local_zshrc"
 fi
