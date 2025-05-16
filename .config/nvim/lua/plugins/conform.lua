@@ -21,6 +21,7 @@ return {
             lua = { "stylua" },
             python = { "black" },
             cpp = { "clang-format" },
+            bzl = { "buildifier" },
         },
         -- Set default options
         default_format_opts = {
