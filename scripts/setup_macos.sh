@@ -21,6 +21,8 @@ DOTFILES_DIR="${SCRIPT_DIR}/../"
 
 stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
 
+# Make sure env variables are defined so homebrew knows where the Brewfile is.
+source ~/.zshenv
 brew bundle check --global || brew bundle install --global
 
 # We use Alacritty's default Linux config directory as our storage location here.
