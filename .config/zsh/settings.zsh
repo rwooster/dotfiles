@@ -8,7 +8,7 @@ EDITOR=nvim
 # History
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-HISTFILE=~/.zsh_history
+HISTFILE=${XDG_DATA_HOME}/zsh/.zsh_history
 HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
