@@ -29,3 +29,7 @@ source "${ZDOTDIR}/bindings.zsh"
 source "${ZDOTDIR}/aliases.zsh"
 source "${ZDOTDIR}/styling.zsh"
 source "${ZDOTDIR}/integrations.zsh"
+
+if [[ -f "~/.local_zshrc" ]] then
+    source "~/.local_zshrc"
+fi
