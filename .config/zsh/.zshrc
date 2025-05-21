@@ -26,6 +26,9 @@ if [[ -d "${XDG_DATA_HOME}/nvim/mason/bin" ]] then
     export PATH="${XDG_DATA_HOME}/nvim/mason/bin:${PATH}"
 fi
 
+export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
 source "${ZDOTDIR}/plugins.zsh"
