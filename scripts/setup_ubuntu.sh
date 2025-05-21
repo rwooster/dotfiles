@@ -35,6 +35,9 @@ sudo mkdir -p -m 755 /etc/apt/keyrings \
 # I don't know who maintains this ppa so probably a little sketchy
 sudo add-apt-repository ppa:aslatter/ppa
 
+# For Python3.9 (which may or may not work).
+sudo add-apt-repository universe
+
 ###
 ### Install apt packages
 ###
@@ -48,6 +51,7 @@ while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
   stow
   alacritty
   fontconfig
+  python3.9
 EOF
 )
 

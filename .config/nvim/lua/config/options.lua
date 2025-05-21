@@ -1,3 +1,5 @@
+vim.g.python3_host_prog = '/usr/bin/python3.9'
+
 vim.o.expandtab = true -- Convert tabs to spaces
 vim.o.shiftwidth = 4 -- Amount to indent with << and >>
 vim.o.tabstop = 4 -- How many spaces are shown per Tab
