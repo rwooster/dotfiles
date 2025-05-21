@@ -35,10 +35,6 @@ autoload -Uz compinit && compinit
 ZDUMP_LOCATION="${XDG_CACHE_HOME:-$HOME/.cache}"
 compinit -d "${ZDUMP_LOCATION}"
 
-## Powerline10k
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ${ZDOTDIR}/.p10k.zsh ]] || source ${ZDOTDIR}/.p10k.zsh
-
 ## zsh-autosuggestions
 # Set `$` to accept suggestion - vim-like end of line keybind.
 #bindkey '$' autosuggest-accept

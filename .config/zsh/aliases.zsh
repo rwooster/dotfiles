@@ -1,6 +1,7 @@
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias tmux="tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf" # Support pre-3.1 tmux
 alias tm="tmux"
 alias ls="ls --color=auto"
 alias ll="ls -la"
