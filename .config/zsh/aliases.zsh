@@ -35,7 +35,7 @@ checkout() {
   git branch |
     rg --invert-match '\*' |
     cut -c 3- |
-    fzf --preview="git log {}" |
+    fzf --preview="git log {}" --height 20% --bind=ctrl-z:ignore |
     xargs_no_run_if_empty git checkout
 }
 alias ch="checkout"
@@ -44,6 +44,6 @@ delete-branches() {
   git branch |
     rg --invert-match '\*' |
     cut -c 3- |
-    fzf --multi --preview="git log {}" |
+    fzf --multi --preview="git log {}" --height 40% --bind=ctrl-z:ignore |
     xargs_no_run_if_empty git branch --delete --force
 }
