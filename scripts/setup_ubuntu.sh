@@ -11,7 +11,7 @@ SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 DOTFILES_DIR="${SCRIPT_DIR}/../"
 
 # Make sure all the XDG_* env variables are loaded
-source ${DOTFILES_DIR}/.zshenv
+source ${DOTFILES_DIR}/config/zsh/.zshenv
 
 # Make sure all the XDG_* directories exist
 mkdir -p ${XDG_CACHE_HOME}
@@ -25,7 +25,12 @@ export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # Setup symlink farm
 stow --version 2>/dev/null || sudo apt update -y && sudo apt -y install stow
-stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
+for package in $(find ${DOTFILES_DIR}/config -mindepth 1 -maxdepth 1 -type d -printf "%P\n"); do
+    stow -R --dir="${DOTFILES_DIR}/config/" --target="${HOME}/.config/" ${package}
+done
+
+# Special handling of the .zshenv, which must live at the root
+ln -s "${HOME}/.config/zsh/.zshenv" "${HOME}/.zshenv"
 
 ###
 ### Setup package servers
