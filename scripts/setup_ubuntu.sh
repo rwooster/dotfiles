@@ -6,8 +6,6 @@ if [[ "$(uname)" != "Linux" ]]; then
   exit
 fi
 
-sudo -n true
-test $? -eq 0 || exit 1 "you should have sudo privilege to run this script"
 
 SCRIPT_DIR=$(dirname $(readlink -f "$0"))
 DOTFILES_DIR="${SCRIPT_DIR}/../"
@@ -15,8 +13,18 @@ DOTFILES_DIR="${SCRIPT_DIR}/../"
 # Make sure all the XDG_* env variables are loaded
 source ${DOTFILES_DIR}/.zshenv
 
+# Make sure all the XDG_* directories exist
+mkdir -p ${XDG_CACHE_HOME}
+mkdir -p ${LOCAL_HOME}
+mkdir -p ${XDG_BIN_HOME}
+mkdir -p ${XDG_DATA_HOME}
+mkdir -p "$XDG_DATA_HOME"/fonts
+
+# Make sure XDG Bin is on the path
+export PATH="${XDG_BIN_HOME}:${PATH}"
+
 # Setup symlink farm
-stow --version || sudo apt-get install stow
+stow --version 2>/dev/null || sudo apt update -y && sudo apt -y install stow
 stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
 
 ###
@@ -33,7 +41,7 @@ sudo mkdir -p -m 755 /etc/apt/keyrings \
 
 # For Alacritty: https://idroot.us/install-alacritty-ubuntu-24-04/#Method_1_Installing_Alacritty_via_PPA
 # I don't know who maintains this ppa so probably a little sketchy
-sudo add-apt-repository ppa:aslatter/ppa
+sudo add-apt-repository ppa:aslatter/ppa -y
 
 # For Python3.9 (which may or may not work).
 sudo add-apt-repository universe
@@ -51,7 +59,7 @@ while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
   stow
   alacritty
   fontconfig
-  python3.9
+  unzip
 EOF
 )
 
@@ -64,15 +72,17 @@ EOF
 
 # For NeoVim: https://github.com/neovim/neovim-releases
 # Use the "unsupported" releases to use newest version on older Ubuntu
-if ! nvim --verion &>/dev/null; then
-  wget https://github.com/neovim/neovim-releases/releases/download/v0.11.1/nvim-linux-x86_64.deb
-  sudo apt install ./nvim-linux-x86_64.deb
+if ! nvim --version &>/dev/null; then
+  wget https://github.com/neovim/neovim-releases/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
+  tar xzf nvim-linux-x86_64.tar.gz -C ${LOCAL_HOME}
+  ln -s ${LOCAL_HOME}/nvim-linux-x86_64/bin/nvim ${XDG_BIN_HOME}/nvim
+  rm nvim-linux-x86_64.tar.gz*
 fi
 
 # For nvm: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
 # node is required by some tools like neovim Mason
 if ! node --version &>/dev/null; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
   export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
   nvm install node # Use the latest version
@@ -104,8 +114,8 @@ if ! fd --help &>/dev/null; then
 fi
 
 # Install font to use: https://www.nerdfonts.com/font-downloads
-if [[ ! -d ${XDG_DATA_HOME}/fonts ]]; then 
-  mkdir -p "$XDG_DATA_HOME"/fonts
+
+if ! fc-list | grep -q FiraMono; then
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraMono.zip
   unzip FiraMono.zip -d "$XDG_DATA_HOME"/fonts
   fc-cache -fv "$XDG_DATA_HOME"/fonts
