@@ -12,20 +12,16 @@ if ! which brew; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Install base prerequisites
-brew install git -q
+# Make sure GNU stow is installed.
 brew install stow -q
 
-SCRIPT_DIR=$(dirname $(readlink -f "$0"))
-DOTFILES_DIR="${SCRIPT_DIR}/../"
+# Run common setup steps
+source $(dirname $(readlink -f "$0"))/common.sh
 
-stow --dir="${DOTFILES_DIR}" --target="${HOME}" -R .
-
-# Make sure env variables are defined so homebrew knows where the Brewfile is.
-source ~/.zshenv
+# Install required packages
 brew bundle check --global || brew bundle install --global
 
-# We use Alacritty's default Linux config directory as our storage location here.
+# Install various themes for alacritty
 if [ ! -d ${HOME}/.config/alacritty/themes ]; then
     mkdir -p ${HOME}/.config/alacritty/themes
     git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes --depth=1
