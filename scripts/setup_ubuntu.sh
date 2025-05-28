@@ -14,11 +14,12 @@ DOTFILES_DIR="${SCRIPT_DIR}/../"
 source ${DOTFILES_DIR}/config/zsh/.zshenv
 
 # Make sure all the XDG_* directories exist
+mkdir -p ${XDG_CONFIG_HOME}
 mkdir -p ${XDG_CACHE_HOME}
 mkdir -p ${LOCAL_HOME}
 mkdir -p ${XDG_BIN_HOME}
 mkdir -p ${XDG_DATA_HOME}
-mkdir -p "$XDG_DATA_HOME"/fonts
+mkdir -p $XDG_DATA_HOME/fonts
 
 # Make sure XDG Bin is on the path
 export PATH="${XDG_BIN_HOME}:${PATH}"
@@ -26,11 +27,12 @@ export PATH="${XDG_BIN_HOME}:${PATH}"
 # Setup symlink farm
 stow --version 2>/dev/null || sudo apt update -y && sudo apt -y install stow
 for package in $(find ${DOTFILES_DIR}/config -mindepth 1 -maxdepth 1 -type d -printf "%P\n"); do
-    stow -R --dir="${DOTFILES_DIR}/config/" --target="${HOME}/.config/" ${package}
+    mkdir -p "${HOME}/.config/${package}/"
+    stow -R --dir="${DOTFILES_DIR}/config/" --target="${HOME}/.config/${package}/" ${package}
 done
 
 # Special handling of the .zshenv, which must live at the root
-ln -s "${HOME}/.config/zsh/.zshenv" "${HOME}/.zshenv"
+ln -f -s "${HOME}/.config/zsh/.zshenv" "${HOME}/.zshenv"
 
 ###
 ### Setup package servers
@@ -133,7 +135,6 @@ if [[ ! -d ${XDG_CONFIG_HOME}/alacritty/themes ]]; then
     git clone https://github.com/alacritty/alacritty-theme ${XDG_CONFIG_HOME}/alacritty/themes --depth=1
 fi
 
-is_zsh=$(echo $SHELL | grep zsh)
-if [ -z "${is_zsh}" ]; then
+if ! echo $SHELL | grep -q zsh; then
   chsh -s $(which zsh) ${USER}
 fi
