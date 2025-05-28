@@ -15,7 +15,7 @@ fi
 
 # Checkout and install dotfiles
 if [ ! -d "$HOME/repos/dotfiles" ]; then
-    git clone -b main https://github.com/rwooster/dotfiles.git "$HOME/repos/dotfiles"
+    git clone -b dir_layout https://github.com/rwooster/dotfiles.git "$HOME/repos/dotfiles"
 fi
 
 ${HOME}/repos/dotfiles/scripts/setup_ubuntu.sh
