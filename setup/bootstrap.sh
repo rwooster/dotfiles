@@ -14,7 +14,7 @@ if [ ! -d "$HOME/repos/dotfiles" ]; then
 fi
 
 if [[ "$(uname)" != "Linux" ]]; then
-    ${HOME}/repos/dotfiles/setup/setup_macos.sh
+    ${HOME}/repos/dotfiles/setup/macos.sh
 else
-    ${HOME}/repos/dotfiles/setup/setup_ubuntu.sh
+    ${HOME}/repos/dotfiles/setup/ubuntu.sh
 fi
