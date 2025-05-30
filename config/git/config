@@ -1,0 +1,45 @@
+[core]
+    compression = 9
+    preloadindex = true
+
+[init]
+    defaultBranch = main
+
+[status]
+    showStash = true
+    showUntrackedFiles = all  # show individual untracked files
+
+[log]
+    abbrevCommit = true  # short commits
+
+[diff]
+    context = 3  # less context in diffs
+    renames = copies  # detect copies as renames in diffs
+    interHunkContext = 10  # merge near hunks in diffs
+
+[init]
+    defaultBranch = main
+
+[push]
+    autoSetupRemote = true  # easier to push new branches
+    default = current  # push only current branch by default
+
+[pull]
+    default = current  # pull only current branch by default
+    rebase = true
+
+[color "branch"]
+    local    = default
+    current  = 3 # green
+    remote   = 4 # blue
+
+[color "diff"]
+    meta       = 8 # gray
+    frag       = 4 # blue
+
+# URL shortcuts
+[url "git@github.com:"]
+    insteadOf = "gh:"
+
+[url "git@github.com:rwooster/"]
+    insteadOf = "rw:"
