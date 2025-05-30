@@ -47,3 +47,4 @@ source "${ZDOTDIR}/integrations.zsh"
 if [[ -f "${HOME}/.local_zshrc" ]] then
     source "${HOME}/.local_zshrc"
 fi
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

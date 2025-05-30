@@ -10,9 +10,6 @@ brew "tmux"
 brew "git"
 brew "stow"
 
-# Required by Nvim-Mason for installing language servers
-brew "npm"
-
 cask "alacritty"
 
 cask "font-fira-code-nerd-font"

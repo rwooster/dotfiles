@@ -21,6 +21,16 @@ source $(dirname $(readlink -f "$0"))/common.sh
 # Install required packages
 brew bundle check --global || brew bundle install --global
 
+# For nvm: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+# node is required by some tools like neovim Mason
+if ! node --version &>/dev/null; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
+  export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  nvm install node # Use the latest version
+  nvm use node
+fi
+
 # Install various themes for alacritty
 if [ ! -d ${HOME}/.config/alacritty/themes ]; then
     mkdir -p ${HOME}/.config/alacritty/themes
