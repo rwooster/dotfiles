@@ -32,8 +32,44 @@ zinit light zsh-users/zsh-completions
 ## zsh-completions
 # Load completions 
 autoload -Uz compinit && compinit
-ZDUMP_LOCATION="${XDG_CACHE_HOME:-$HOME/.cache}"
-compinit -d "${ZDUMP_LOCATION}"
+
+# Enable various "completers":
+# _extensions - Complete the glob *. with the possible file extensions.
+# _complete - This is the main completer we need to use for our completion.
+# _approximate - This one is similar to _complete, except that it will try to correct what you’ve typed already (the context) if no match is found.
+zstyle ':completion:*' completer _extensions _complete _approximate
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/.zcompcache"
+
+# Make autocompletion case-insensisitive
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# Make completion results use the same colors as ls
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
+
+# Enable completion menu
+zstyle ':completion:*' menu select 
+
+# Color the descriptions in the completion menu.
+zstyle ':completion:*:*:*:*:descriptions' format '%F{8}-- %d --%f'
+
+# Put each group descriptor over its corresponding group, rather than all at the top.
+zstyle ':completion:*' group-name ''
+
+# Use vi style navigation inside the completion menu
+# Note: This doesn't work great currently for vertical lists
+# Since the keybind "jj" to exit insert mode interferes.
+# TODO: Consider how to handle that.
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+setopt LIST_PACKED
+setopt AUTO_LIST
+setopt AUTO_MENU
 
 ## zsh-autosuggestions
 # Set `$` to accept suggestion - vim-like end of line keybind.
