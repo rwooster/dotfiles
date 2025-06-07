@@ -22,6 +22,7 @@ return {
             python = { "black" },
             cpp = { "clang-format" },
             bzl = { "buildifier" },
+            zsh = {"shfmt" },
         },
         -- Set default options
         default_format_opts = {
