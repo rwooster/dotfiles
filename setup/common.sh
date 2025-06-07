@@ -16,7 +16,7 @@ mkdir -p $XDG_DATA_HOME/fonts
 export PATH="${XDG_BIN_HOME}:${PATH}"
 
 # Setup symlink farm
-for package in $(find ${DOTFILES_DIR}/config -mindepth 1 -maxdepth 1 -type d | xargs basename); do
+for package in $(find ${DOTFILES_DIR}/config -mindepth 1 -maxdepth 1 -type d | xargs basename -a); do
     mkdir -p "${HOME}/.config/${package}/"
     stow -R --dir="${DOTFILES_DIR}/config/" --target="${HOME}/.config/${package}/" ${package}
 done
