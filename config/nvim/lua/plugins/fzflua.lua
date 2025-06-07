@@ -28,6 +28,14 @@ return {
             desc = "Find by grepping in project directory",
         },
         {
+            "<leader>fgc",
+            function()
+                local fzf_lua = require("fzf-lua")
+                fzf_lua.live_grep({ cwd = vim.fn.getcwd() })
+            end,
+            desc = "Find by grepping in current directory",
+        },
+        {
             "<leader>fc",
             function()
                 require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
