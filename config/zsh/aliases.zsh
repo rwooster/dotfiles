@@ -19,6 +19,7 @@ alias gitrc="nvim ~/.config/git/config"
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit"
+alias gch="git checkout"
 alias gb="git branch"
 # Hide the "+" and "-" by default and rely on colors.
 alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
@@ -28,6 +29,8 @@ alias gds="gd --staged"
 alias gcl="git clone"
 alias gpu="git push"
 alias gpl="git pull"
+alias gr="git restore"
+alias grs="git restore --staged"
 
 # Format guide:
 # %C Set color
