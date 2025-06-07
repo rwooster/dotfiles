@@ -1,6 +1,6 @@
 vim.g.python3_host_prog = '/usr/bin/python3.9'
 
-vim.o.expandtab = true -- Convert tabs to spaces
+vim.o.expandtab = true -- convert tabs to spaces
 vim.o.shiftwidth = 4 -- Amount to indent with << and >>
 vim.o.tabstop = 4 -- How many spaces are shown per Tab
 vim.o.softtabstop = 4 -- How many spaces are applied when pressing Tab
@@ -65,3 +65,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank({ timeout = 300 })
     end,
 })
+
+-- Include angle brackets in matched pairs
+vim.opt.matchpairs:append("<:>")

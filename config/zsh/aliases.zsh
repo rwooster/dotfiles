@@ -70,6 +70,13 @@ delete-branches() {
   git branch |
     rg --invert-match '\*' |
     cut -c 3- |
-    fzf --multi --preview="git log {}" --height 40% --bind=ctrl-z:ignore |
+    fzf --multi --preview="git log {}" --height 20% --bind=ctrl-z:ignore |
     xargs_no_run_if_empty git branch --delete --force
 }
+
+git_add_fuzzy() {
+  git ls-files -m -o --exclude-standard |
+    fzf --multi --preview="git diff {}" --height 40% --bind=ctrl-z:ignore |
+    xargs_no_run_if_empty git add
+}
+alias gaf="git_add_fuzzy"
