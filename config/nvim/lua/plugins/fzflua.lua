@@ -38,7 +38,7 @@ return {
         {
             "<leader>fc",
             function()
-                require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
+                require("fzf-lua").files({ cwd = vim.fn.stdpath("config") .. "/lua" })
             end,
             desc = "Find in neovim configuration",
         },
