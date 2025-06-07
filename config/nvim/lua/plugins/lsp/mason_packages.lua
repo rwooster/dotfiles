@@ -42,8 +42,9 @@ return {
     },
     tools = {
         "stylua",
-        "black",
-        "clang-format",
+        -- "black",
+        -- Ubuntu 20.04 has too old of a system python to install
+        {"clang-format", condition = function() return vim.fn.executable('clang-format') == 0  end },
         "buildifier",
     },
 }
