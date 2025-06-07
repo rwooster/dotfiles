@@ -23,7 +23,7 @@ brew bundle check --global || brew bundle install --global
 
 # For nvm: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
 # node is required by some tools like neovim Mason
-if ! node --version &>/dev/null; then
+if ! nvm --version &>/dev/null; then
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
   export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
