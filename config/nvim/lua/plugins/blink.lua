@@ -5,6 +5,7 @@ return {
     version = "1.*",
     dependencies = {
         "folke/lazydev.nvim",
+        "fang2hou/blink-copilot",
     },
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
@@ -17,6 +18,7 @@ return {
         keymap = {
             ["<Tab>"] = { "select_next", "accept", "fallback" },
             ["<S-Tab>"] = { "select_prev", "fallback" },
+            ['<C-j>'] = { 'select_and_accept' },
         },
 
         appearance = {
@@ -35,7 +37,7 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-            default = { "lsp", "path", "buffer", "lazydev" },
+            default = { "lsp", "path", "buffer", "copilot", "lazydev" },
             providers = {
                 path = {
                     opts = {
@@ -47,6 +49,12 @@ return {
                     module = "lazydev.integrations.blink",
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
+                },
+                 copilot = {
+                  name = "copilot",
+                  module = "blink-copilot",
+                  score_offset = 100,
+                  async = true,
                 },
             },
         },
