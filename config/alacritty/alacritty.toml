@@ -6,7 +6,7 @@ padding.x = 3
 padding.y = 3
 dynamic_padding = false
 
-opacity = 0.95
+opacity = 0.98
 decorations="None"
 startup_mode="Maximized"
 
