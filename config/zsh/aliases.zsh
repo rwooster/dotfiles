@@ -1,6 +1,7 @@
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias vimdiff="nvim -d"
 alias tmux="tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf" # Support pre-3.1 tmux
 alias tm="tmux"
 alias ls="ls --color=auto"
@@ -31,6 +32,9 @@ alias gpu="git push"
 alias gpl="git pull"
 alias gr="git restore"
 alias grs="git restore --staged"
+alias gm="git merge"
+alias gr="git rebase"
+alias gf="git fetch"
 
 # Format guide:
 # %C Set color
@@ -41,7 +45,7 @@ alias grs="git restore --staged"
 # %n newline
 # %s commit message
 # TODO: Get a common definition for colors
-alias gl="git log --graph --all --pretty=format:'%C(11)%h %C(10)%an%C(8) <%ar> %C(4)%D%n%s%n'"
+alias gl="git log --graph --pretty=format:'%C(11)%h %C(10)%an%C(8) <%ar> %C(4)%D%n%s%n'"
 
 # Reload the .zsh config file
 alias rld="source ~/.config/zsh/.zshrc"
@@ -83,3 +87,33 @@ git_add_fuzzy() {
     xargs_no_run_if_empty git add
 }
 alias gaf="git_add_fuzzy"
+
+
+pr-checkout() {
+  local jq_template pr_number
+
+  jq_template='"'\
+'#\(.number) - \(.title)'\
+'\t'\
+'Author: \(.user.login)\n'\
+'Created: \(.created_at)\n'\
+'Updated: \(.updated_at)\n\n'\
+'\(.body)'\
+'"'
+
+  pr_number=$(
+    gh api 'repos/:owner/:repo/pulls' |
+    jq ".[] | $jq_template" |
+    sed -e 's/"\(.*\)"/\1/' -e 's/\\t/\t/' |
+    fzf \
+      --with-nth=1 \
+      --delimiter='\t' \
+      --preview='echo -e {2}' \
+      --bind=ctrl-z:ignore |
+    sed 's/^#\([0-9]\+\).*/\1/'
+  )
+
+  if [ -n "$pr_number" ]; then
+    gh pr checkout "$pr_number"
+  fi
+}
