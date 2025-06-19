@@ -36,6 +36,8 @@ alias grts="git restore --staged"
 alias gm="git merge"
 alias gr="git rebase"
 alias gf="git fetch"
+alias gst="git stash"
+alias grs="git reset"
 
 # Format guide:
 # %C Set color
