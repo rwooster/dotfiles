@@ -143,9 +143,9 @@ return {
                 end,
             },
         })
-        local packages = require("plugins.lsp.mason_packages")
+        local packages = require("core.packages")
         local ensure_installed = vim.tbl_keys(packages.servers or {})
-        vim.list_extend(ensure_installed, packages.tools)
+        vim.list_extend(ensure_installed, packages.formatters)
 
         -- Install all required packages
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

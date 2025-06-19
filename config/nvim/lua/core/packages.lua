@@ -1,7 +1,4 @@
 return {
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
     --  Add any additional override configuration in the following tables. Available keys are:
     --  - cmd (table): Override the default command used to start the server
     --  - filetypes (table): Override the default list of associated filetypes for the server
@@ -19,12 +16,6 @@ return {
                 "bazel",
             },
         },
-
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-
         lua_ls = {
             -- cmd = { ... },
             -- filetypes = { ... },
@@ -40,7 +31,7 @@ return {
             -- },
         },
     },
-    tools = {
+    formatters = {
         "stylua",
         -- "black",
         -- Ubuntu 20.04 has too old of a system python to install
