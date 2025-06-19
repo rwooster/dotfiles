@@ -13,21 +13,21 @@
 --     end,
 -- }
 return {
-  "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
-  opts = {
-    suggestion = {
-      enabled = false,
-      auto_trigger = true,
-      keymap = {
-        accept = "<C-j>",
-        next = "<C-]>",
-        prev = "<C-[>",
-      }
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+        suggestion = {
+            enabled = false,
+            auto_trigger = true,
+            keymap = {
+                accept = "<C-j>",
+                next = "<C-]>",
+                prev = "<C-[>",
+            },
+        },
+        panel = {
+            enabled = false,
+        },
     },
-    panel = {
-      enabled = false
-    },
-  },
 }

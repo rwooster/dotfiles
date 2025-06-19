@@ -1,4 +1,4 @@
-vim.g.python3_host_prog = '/usr/bin/python3.9'
+vim.g.python3_host_prog = "/usr/bin/python3.9"
 
 vim.o.expandtab = true -- convert tabs to spaces
 vim.o.shiftwidth = 4 -- Amount to indent with << and >>

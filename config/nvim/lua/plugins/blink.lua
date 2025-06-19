@@ -18,7 +18,7 @@ return {
         keymap = {
             ["<Tab>"] = { "select_next", "accept", "fallback" },
             ["<S-Tab>"] = { "select_prev", "fallback" },
-            ['<C-j>'] = { 'select_and_accept' },
+            ["<C-j>"] = { "select_and_accept" },
         },
 
         appearance = {
@@ -50,11 +50,11 @@ return {
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
-                 copilot = {
-                  name = "copilot",
-                  module = "blink-copilot",
-                  score_offset = 100,
-                  async = true,
+                copilot = {
+                    name = "copilot",
+                    module = "blink-copilot",
+                    score_offset = 100,
+                    async = true,
                 },
             },
         },

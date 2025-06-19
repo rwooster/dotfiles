@@ -7,6 +7,7 @@ alias tm="tmux"
 alias ls="ls --color=auto"
 alias ll="ls -la"
 alias gitfix='git commit --amend --no-edit'
+alias stylua="stylua --indent-type Spaces"
 
 # Quickly open config files
 alias zal="nvim ~/.config/zsh/aliases.zsh"
