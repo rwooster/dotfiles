@@ -17,12 +17,11 @@ source $(dirname $(readlink -f "$0"))/common.sh
 ###
 
 # For gh CLI: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-sudo mkdir -p -m 755 /etc/apt/keyrings \
-        && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-        && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
-
+sudo mkdir -p -m 755 /etc/apt/keyrings &&
+  out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
+  cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null &&
+  sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
 
 # For Alacritty: https://idroot.us/install-alacritty-ubuntu-24-04/#Method_1_Installing_Alacritty_via_PPA
 # I don't know who maintains this ppa so probably a little sketchy
@@ -37,7 +36,8 @@ sudo add-apt-repository universe
 
 sudo apt update
 
-while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
+while read -r p; do sudo apt-get install -y $p; done < <(
+  cat <<"EOF"
   zsh
   gh
   tmux
@@ -72,20 +72,20 @@ if ! node --version &>/dev/null; then
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
   export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-  nvm install node # Use the latest version
+  nvm install node                                 # Use the latest version
   nvm use node
 fi
 
 # For fzf: https://github.com/junegunn/fzf?tab=readme-ov-file#using-git
 if ! fzf --version &>/dev/null; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git 
+  git clone --depth 1 https://github.com/junegunn/fzf.git
   ./fzf/install --bin
   mv ./fzf/bin/fzf ${XDG_BIN_HOME}/fzf
   rm -rf fzf
 fi
 
 # For rg: https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation
-# TODO: Don't hard code a release version 
+# TODO: Don't hard code a release version
 if ! rg --help &>/dev/null; then
   wget https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep_14.1.0-1_amd64.deb
   sudo dpkg -i ripgrep*.deb
@@ -93,7 +93,7 @@ if ! rg --help &>/dev/null; then
 fi
 
 # For fd: https://github.com/sharkdp/fd?tab=readme-ov-file#installation
-# TODO: Don't hard code a release version 
+# TODO: Don't hard code a release version
 if ! fd --help &>/dev/null; then
   wget https://github.com/sharkdp/fd/releases/download/v10.2.0/fd_10.2.0_amd64.deb
   sudo dpkg -i fd*.deb
@@ -111,8 +111,8 @@ fi
 
 # Install various themes for alacritty
 if [[ ! -d ${XDG_CONFIG_HOME}/alacritty/themes ]]; then
-    mkdir -p ${XDG_CONFIG_HOME}/alacritty/themes
-    git clone https://github.com/alacritty/alacritty-theme ${XDG_CONFIG_HOME}/alacritty/themes --depth=1
+  mkdir -p ${XDG_CONFIG_HOME}/alacritty/themes
+  git clone https://github.com/alacritty/alacritty-theme ${XDG_CONFIG_HOME}/alacritty/themes --depth=1
 fi
 
 if ! echo $SHELL | grep -q zsh; then
