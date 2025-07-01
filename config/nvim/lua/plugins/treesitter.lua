@@ -24,6 +24,6 @@ return { -- Highlight, edit, and navigate code
         highlight = {
             enable = true,
         },
-        indent = { enable = true },
+        -- indent = { enable = true },
     },
 }
