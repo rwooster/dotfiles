@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Check that alacritty terminfo is set properly
 # https://github.com/alacritty/alacritty/blob/master/INSTALL.md#post-build
 # https://michenriksen.com/posts/italic-text-in-alacritty-tmux-neovim/
