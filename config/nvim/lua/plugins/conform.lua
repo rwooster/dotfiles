@@ -28,6 +28,8 @@ return {
             lsp_format = "fallback",
         },
         -- Set up format-on-save
+        -- NOTE: Save without running formatting with :noau w
+        -- This will run the command without running any autocommands
         format_on_save = { timeout_ms = 500 },
         -- Customize formatters
         formatters = {
