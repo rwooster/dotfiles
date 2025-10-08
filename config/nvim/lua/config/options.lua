@@ -71,3 +71,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Include angle brackets in matched pairs
 vim.opt.matchpairs:append("<:>")
+
+-- Disable comment block continuation when inserting a new line with "o"
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = vim.api.nvim_create_augroup("FormatOptions", { clear = true }),
+  pattern = { "*" },
+  callback = function()
+    vim.opt_local.formatoptions:remove("o")
+  end,
+})
