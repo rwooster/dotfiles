@@ -1,5 +1,6 @@
 return {
     "stevearc/conform.nvim",
+    dependencies = { "ibhagwan/fzf-lua" }, -- For fzf-lua.path to get the git root
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     keys = {
@@ -36,6 +37,44 @@ return {
             stylua = {
                 prepend_args = { "--indent-type", "Spaces" },
             },
+            -- Handle some special cases for certain repository structures
+            -- Some repos define the clang-format file in a bazel external named bazel_tooling.
+            -- If that exists, use the clang-format file from there. Otherwise, don't specify 
+            -- a clang-format file and the usual `.clang-format` will be used.
+            -- Some repos define a specific clang-format binary. Search for it it in 
+            -- two known locations. If it is not found, then clang-format will be run via the PATH.
+            --
+            ["clang-format"] = function()
+                local path = require("fzf-lua.path")
+                local git_root = path.git_root({}, true)
+                local config = {}
+
+                if git_root then
+                    -- Check for custom clang-format binary (in priority order)
+                    local clang_format_bins = {
+                        git_root .. "/external/llvm_toolchain_patched_files/bin/clang-format",
+                        git_root .. "/external/arene-linters~~non_module_dependencies~local_config_arene_linters/bin/clang-format",
+                    }
+                    for _, clang_format_bin in ipairs(clang_format_bins) do
+                        local bin_file = io.open(clang_format_bin, "r")
+                        if bin_file then
+                            bin_file:close()
+                            config.command = clang_format_bin
+                            break
+                        end
+                    end
+
+                    -- Check for custom .clang-format style file
+                    local clang_format_path = git_root .. "/external/bazel_tooling/.clang-format"
+                    local style_file = io.open(clang_format_path, "r")
+                    if style_file then
+                        style_file:close()
+                        config.prepend_args = { "--style=file:" .. clang_format_path }
+                    end
+                end
+
+                return config
+            end,
         },
     },
 }
