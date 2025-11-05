@@ -50,10 +50,14 @@ return {
                 local config = {}
 
                 if git_root then
+                    -- Get the directory name to construct bazel-xyz path
+                    local dir_name = git_root:match("([^/]+)$")
+                    local bazel_external = git_root .. "/bazel-" .. dir_name .. "/external"
+
                     -- Check for custom clang-format binary (in priority order)
                     local clang_format_bins = {
-                        git_root .. "/external/llvm_toolchain_patched_files/bin/clang-format",
-                        git_root .. "/external/arene-linters~~non_module_dependencies~local_config_arene_linters/bin/clang-format",
+                        bazel_external .. "/llvm_toolchain_patched_files/bin/clang-format",
+                        bazel_external .. "/arene-linters~~non_module_dependencies~local_config_arene_linters/bin/clang-format",
                     }
                     for _, clang_format_bin in ipairs(clang_format_bins) do
                         local bin_file = io.open(clang_format_bin, "r")
@@ -65,7 +69,7 @@ return {
                     end
 
                     -- Check for custom .clang-format style file
-                    local clang_format_path = git_root .. "/external/bazel_tooling/.clang-format"
+                    local clang_format_path = bazel_external .. "/bazel_tooling/.clang-format"
                     local style_file = io.open(clang_format_path, "r")
                     if style_file then
                         style_file:close()
