@@ -68,12 +68,18 @@ return {
                         end
                     end
 
-                    -- Check for custom .clang-format style file
-                    local clang_format_path = bazel_external .. "/bazel_tooling/.clang-format"
-                    local style_file = io.open(clang_format_path, "r")
-                    if style_file then
-                        style_file:close()
-                        config.prepend_args = { "--style=file:" .. clang_format_path }
+                    -- Check for custom .clang-format style file (in priority order)
+                    local clang_format_configs = {
+                        bazel_external .. "/bazel_tooling/.clang-format",
+                        git_root .. "/tools/clang-format/.clang-format",
+                    }
+                    for _, clang_format_path in ipairs(clang_format_configs) do
+                        local style_file = io.open(clang_format_path, "r")
+                        if style_file then
+                            style_file:close()
+                            config.prepend_args = { "--style=file:" .. clang_format_path }
+                            break
+                        end
                     end
                 end
 
