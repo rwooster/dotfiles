@@ -47,8 +47,14 @@ while read -r p; do sudo apt-get install -y $p; done < <(
   unzip
   llvm
   clang
+  git-lfs
 EOF
 )
+
+# Requests an additional install step after pulling from apt
+if ! git lfs --version &>/dev/null; then
+  git lfs install
+fi
 
 ###
 ### Install without apt
