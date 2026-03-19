@@ -16,6 +16,9 @@ vim.o.relativenumber = true
 -- Show line under cursor
 vim.o.cursorline = true
 
+-- Show vertical highlight of column under cursor
+vim.o.cursorcolumn = true
+
 -- Store undos between sessions
 vim.o.undofile = true
 
