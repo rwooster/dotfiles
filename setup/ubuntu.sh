@@ -121,6 +121,10 @@ if [[ ! -d ${XDG_CONFIG_HOME}/alacritty/themes ]]; then
   git clone https://github.com/alacritty/alacritty-theme ${XDG_CONFIG_HOME}/alacritty/themes --depth=1
 fi
 
+if ! uv --help &>/dev/null; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
 if ! echo $SHELL | grep -q zsh; then
   chsh -s $(which zsh) ${USER}
 fi
