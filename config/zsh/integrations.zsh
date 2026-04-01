@@ -5,20 +5,20 @@
 # Enable fzf
 eval "$(fzf --zsh)"
 
-export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always --exclude bin/ -H'
+export FZF_DEFAULT_COMMAND='fd --type file --follow --color=always --exclude bin/ --exclude .git -H'
 # This lets the fd colors work. This can be slow, remove this if fzf seems to start lagging.
 export FZF_DEFAULT_OPTS="--ansi"
-export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always --exclude bin/ -H'
+export FZF_CTRL_T_COMMAND='fd --follow --strip-cwd-prefix --color=always --exclude bin/ --exclude .git -H'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 # - The first argument to the function ($1) is the base path to start traversal
 _fzf_compgen_path() {
-  fd --follow --color=always --exclude bin/ . "$1"
+  fd --follow --color=always --exclude bin/ --exclude .git . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --follow --color=always --exclude bin/ --type d  . "$1"
+  fd --follow --color=always --exclude bin/ --exclude .git --type d  . "$1"
 }
 
 _fzf_complete_bazel_test() {
