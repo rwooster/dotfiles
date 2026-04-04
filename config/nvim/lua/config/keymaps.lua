@@ -31,3 +31,13 @@ vim.keymap.set("v", "<Leader>cc", "gc", { remap = true, desc = "[C]ode [C]omment
 
 ---- Map <leader>fp to open projects
 --vim.keymap.set("n", "<leader>fp", ":ProjectFzf<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>gl", function()
+    local file = vim.fn.expand("%")
+    local git_log = "log --graph --decorate --color"
+    -- Set -+F to disable -F on the pager (less) for git so it doesn't immediately exit on short logs.
+    -- Set -R to forward colors.
+    local git_config = '-c core.pager="less -+F -R"'
+    local cmd = string.format("tmux split-window -h 'git %s %s -- %s'", git_config, git_log, file)
+    os.execute(cmd)
+end, { desc = "Git log in tmux pane" })
