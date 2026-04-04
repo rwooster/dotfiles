@@ -15,14 +15,6 @@ vim.keymap.set("v", "<C-j>", "xp`[V`]", { desc = "Bubble a line down" })
 vim.keymap.set("n", "<Leader>s", ":%s/<C-r><C-w>/", { desc = "Start a replace on the current word" })
 vim.keymap.set("n", "<Leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear highlighted results from search" })
 
--- Windows
-
--- Already used for switching buffers, consider if alternate key bindings are worth it.
---vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
---vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
 -- Map build-in commenting keybind to the vim+nerdcommenter mapping.
 vim.keymap.set("n", "<Leader>cc", "gcc", { remap = true, desc = "[C]ode [C]omment" })
 vim.keymap.set("v", "<Leader>cc", "gc", { remap = true, desc = "[C]ode [C]omment" })
