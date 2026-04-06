@@ -10,6 +10,7 @@ brew "tmux"
 brew "git"
 brew "stow"
 brew "tree"
+brew "uv"
 
 cask "alacritty"
 
