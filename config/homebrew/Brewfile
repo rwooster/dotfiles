@@ -11,6 +11,7 @@ brew "git"
 brew "stow"
 brew "tree"
 brew "uv"
+brew "zoxide"
 
 cask "alacritty"
 

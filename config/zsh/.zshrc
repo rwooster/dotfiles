@@ -48,3 +48,7 @@ if [[ -f "${HOME}/.local_zshrc" ]] then
     source "${HOME}/.local_zshrc"
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Load zoxide
+_ZO_DATA_DIR="${XDG_DATA_HOME}"
+eval "$(zoxide init --cmd cd zsh)"
