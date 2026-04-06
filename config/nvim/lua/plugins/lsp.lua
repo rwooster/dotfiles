@@ -157,6 +157,6 @@ return {
             end
             vim.lsp.enable(server_name)
         end
-        vim.lsp.set_log_level("off")
+        vim.lsp.log.set_level("off")
     end,
 }
