@@ -38,6 +38,9 @@ vim.keymap.set("n", "<leader>gl", function()
     -- Set -+F to disable -F on the pager (less) for git so it doesn't immediately exit on short logs.
     -- Set -R to forward colors.
     local git_config = '-c core.pager="less -+F -R"'
-    local cmd = string.format("tmux split-window -h 'git %s %s -- %s'", git_config, git_log, file)
-    os.execute(cmd)
+    local tmux = require("libtmux")
+    tmux:split_window({
+        horizontal = true,
+        shell_command = string.format("git %s %s -- %s", git_config, git_log, file),
+    })
 end, { desc = "Git log in tmux pane" })
