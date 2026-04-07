@@ -131,6 +131,10 @@ if ! uv --help &>/dev/null; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
 fi
 
+if ! zoxide --version &>/dev/null; then
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
+
 if ! echo $SHELL | grep -q zsh; then
   chsh -s $(which zsh) ${USER}
 fi
