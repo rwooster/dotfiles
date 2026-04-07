@@ -60,6 +60,9 @@ vim.o.scrolloff = 5
 -- Set the cwd to the directory of the current buffer
 vim.o.autochdir = true
 
+-- Set default border for all floating windows
+vim.o.winborder = "rounded"
+
 -- Preview substitutions live
 vim.o.inccommand = "split"
 
