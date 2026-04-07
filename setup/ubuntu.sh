@@ -127,6 +127,12 @@ if [[ ! -d ${XDG_CONFIG_HOME}/alacritty/themes ]]; then
   git clone https://github.com/alacritty/alacritty-theme ${XDG_CONFIG_HOME}/alacritty/themes --depth=1
 fi
 
+# For rustup/cargo: needed to build tree-sitter-cli from source
+if ! cargo --version &>/dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  source "${HOME}/.cargo/env"
+fi
+
 if ! uv --help &>/dev/null; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
 fi

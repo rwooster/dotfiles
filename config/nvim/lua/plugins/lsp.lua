@@ -4,7 +4,26 @@ return {
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
         -- Mason must be loaded before its dependents so we need to set it up here.
-        { "mason-org/mason.nvim", opts = {} },
+        {
+            "mason-org/mason.nvim",
+            opts = function()
+                local registries = { "github:mason-org/mason-registry" }
+                -- Pre-built tree-sitter-cli binaries require glibc >= 2.35.
+                -- On older systems, use a custom registry that builds via cargo instead.
+                if vim.fn.has("linux") == 1 then
+                    local handle = io.popen("ldd --version 2>&1 | head -1")
+                    if handle then
+                        local output = handle:read("*a")
+                        handle:close()
+                        local ver = output:match("(%d+%.%d+)%s*$")
+                        if ver and tonumber(ver) < 2.35 then
+                            table.insert(registries, 1, "lua:custom_registry")
+                        end
+                    end
+                end
+                return { registries = registries }
+            end,
+        },
 
         -- Used translate between nvim-lspconfig server names and mason.nvim
         -- package names (e.g. lua_ls <-> lua-language-server)

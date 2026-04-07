@@ -31,6 +31,8 @@ if [[ -d "${XDG_DATA_HOME}/nvim/mason/bin" ]] then
     export PATH="${XDG_DATA_HOME}/nvim/mason/bin:${PATH}"
 fi
 
+[ -s "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
+
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 nvm use node --silent
