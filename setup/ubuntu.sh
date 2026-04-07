@@ -17,11 +17,14 @@ source $(dirname $(readlink -f "$0"))/common.sh
 ###
 
 # For gh CLI: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-sudo mkdir -p -m 755 /etc/apt/keyrings &&
-  out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
-  cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null &&
-  sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+if ! gh --version &>/dev/null; then
+  sudo mkdir -p -m 755 /etc/apt/keyrings &&
+    out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
+    cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null &&
+    sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
+    sudo mkdir -p -m 755 /etc/apt/sources.list.d &&
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+fi
 
 # For Alacritty: https://idroot.us/install-alacritty-ubuntu-24-04/#Method_1_Installing_Alacritty_via_PPA
 # I don't know who maintains this ppa so probably a little sketchy
@@ -66,7 +69,7 @@ fi
 # For NeoVim: https://github.com/neovim/neovim-releases
 # Use the "unsupported" releases to use newest version on older Ubuntu
 if ! nvim --version &>/dev/null; then
-  wget https://github.com/neovim/neovim-releases/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
+  wget https://github.com/neovim/neovim-releases/releases/download/v0.12.1/nvim-linux-x86_64.tar.gz
   tar xzf nvim-linux-x86_64.tar.gz -C ${LOCAL_HOME}
   ln -s ${LOCAL_HOME}/nvim-linux-x86_64/bin/nvim ${XDG_BIN_HOME}/nvim
   rm nvim-linux-x86_64.tar.gz*
@@ -108,7 +111,10 @@ fi
 
 # Install font to use: https://www.nerdfonts.com/font-downloads
 
-if ! fc-list | grep -q FiraMono; then
+if ! (
+  set +o pipefail
+  fc-list | grep -q FiraMono
+); then
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraMono.zip
   unzip FiraMono.zip -d "$XDG_DATA_HOME"/fonts
   fc-cache -fv "$XDG_DATA_HOME"/fonts
