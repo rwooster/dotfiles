@@ -1,8 +1,7 @@
 return {
     'rwooster/bazel-build-file.nvim',
     dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-treesitter/nvim-treesitter',
+        'rwooster/libbazel.nvim',
     },
     cmd = 'BazelBuildFile',
     keys = {

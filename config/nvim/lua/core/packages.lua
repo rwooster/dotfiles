@@ -42,5 +42,6 @@ return {
             end,
         },
         "buildifier",
+        "tree-sitter-cli",
     },
 }
