@@ -91,6 +91,57 @@ git_add_fuzzy() {
 }
 alias gaf="git_add_fuzzy"
 
+git_worktree_add() {
+  local repo_root repo_name parent_dir branch summary worktree_path
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "Not in a git repository" >&2
+    return 1
+  }
+  repo_name=$(basename "$repo_root")
+  parent_dir=$(dirname "$repo_root")
+
+  branch=$(
+    git branch --all |
+      rg --invert-match '\*|HEAD' |
+      cut -c 3- |
+      sed 's|^remotes/[^/]*/||' |
+      awk '!seen[$0]++' |
+      fzf --preview="git log {}" --height 40% --bind=ctrl-z:ignore
+  )
+
+  [[ -z "$branch" ]] && return 1
+
+  summary="${branch##*/}"
+  summary="${summary//_/-}"
+  worktree_path="${parent_dir}/${repo_name}-${summary}"
+
+  git worktree add "$worktree_path" "$branch"
+}
+alias gwt="git_worktree_add"
+
+git_worktree_remove() {
+  local current
+  current=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "Not in a git repository" >&2
+    return 1
+  }
+
+  git worktree list --porcelain |
+    rg '^worktree ' |
+    cut -d' ' -f2- |
+    rg --invert-match "^${current}$" |
+    awk -F/ '{print $NF "\t" $0}' |
+    fzf --multi \
+      --with-nth=1 \
+      --delimiter='\t' \
+      --preview="git -C {2} log --oneline -20" \
+      --height 40% \
+      --bind=ctrl-z:ignore |
+    cut -f2 |
+    xargs_no_run_if_empty -I{} git worktree remove {}
+}
+alias gwtr="git_worktree_remove"
+
 
 pr-checkout() {
   local jq_template pr_number
