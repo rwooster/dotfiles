@@ -93,7 +93,8 @@ alias gaf="git_add_fuzzy"
 
 git_worktree_add() {
   local repo_root repo_name parent_dir branch summary worktree_path
-  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  repo_root=$(git worktree list --porcelain 2>/dev/null | awk '/^worktree / {print $2; exit}')
+  [[ -z "$repo_root" ]] && {
     echo "Not in a git repository" >&2
     return 1
   }
