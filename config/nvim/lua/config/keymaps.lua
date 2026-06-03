@@ -19,6 +19,15 @@ vim.keymap.set("n", "<Leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear highligh
 vim.keymap.set("n", "<Leader>cc", "gcc", { remap = true, desc = "[C]ode [C]omment" })
 vim.keymap.set("v", "<Leader>cc", "gc", { remap = true, desc = "[C]ode [C]omment" })
 
+-- Toggle diagnostics
+vim.keymap.set("n", "<leader>dd", function()
+    if vim.diagnostic.is_enabled() then
+        vim.diagnostic.enable(false)
+    else
+        vim.diagnostic.enable()
+    end
+end)
+
 --vim.keymap.set("n", "gl", function()
 --vim.diagnostic.open_float()
 --end, { desc = "Open Diagnostics in Float" })
