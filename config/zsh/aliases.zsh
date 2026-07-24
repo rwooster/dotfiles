@@ -92,7 +92,7 @@ git_add_fuzzy() {
 alias gaf="git_add_fuzzy"
 
 git_worktree_add() {
-  local repo_root repo_name parent_dir branch summary worktree_path
+  local repo_root repo_name parent_dir branch summary worktree_path new_branch
   repo_root=$(git worktree list --porcelain 2>/dev/null | awk '/^worktree / {print $2; exit}')
   [[ -z "$repo_root" ]] && {
     echo "Not in a git repository" >&2
@@ -101,45 +101,84 @@ git_worktree_add() {
   repo_name=$(basename "$repo_root")
   parent_dir=$(dirname "$repo_root")
 
-  branch=$(
-    git branch --all |
-      rg --invert-match '\*|HEAD' |
-      cut -c 3- |
-      sed 's|^remotes/[^/]*/||' |
-      awk '!seen[$0]++' |
-      fzf --preview="git log {}" --height 40% --bind=ctrl-z:ignore
-  )
-
-  [[ -z "$branch" ]] && return 1
+  if [[ -n "$1" ]]; then
+    # Explicit branch name given: create a new branch for it.
+    branch="$1"
+    new_branch=1
+  else
+    # No argument: pick an existing branch, or type a new name to create it.
+    # --print-query makes fzf emit the typed query as the first line, followed
+    # by the selection (if any). No selection => the query is a new branch name.
+    local fzf_out query selected
+    fzf_out=$(
+      git branch |
+        rg --invert-match '\*|HEAD' |
+        cut -c 3- |
+        fzf --print-query --preview="git log {}" --height 40% --bind=ctrl-z:ignore
+    )
+    query=${fzf_out%%$'\n'*}
+    if [[ "$fzf_out" == *$'\n'* ]]; then
+      selected=${fzf_out#*$'\n'}
+    else
+      selected=""
+    fi
+    if [[ -n "$selected" ]]; then
+      branch="$selected"
+    elif [[ -n "$query" ]]; then
+      branch="$query"
+      new_branch=1
+    else
+      return 1
+    fi
+  fi
 
   summary="${branch##*/}"
   summary="${summary//_/-}"
   worktree_path="${parent_dir}/${repo_name}-${summary}"
 
-  git worktree add "$worktree_path" "$branch"
+  if [[ -n "$new_branch" ]]; then
+    git worktree add -b "$branch" "$worktree_path" || return 1
+  else
+    git worktree add "$worktree_path" "$branch" || return 1
+  fi
+
+  cd "$worktree_path"
 }
 alias gwt="git_worktree_add"
 
 git_worktree_remove() {
-  local current
+  local current main_worktree selected
   current=$(git rev-parse --show-toplevel 2>/dev/null) || {
     echo "Not in a git repository" >&2
     return 1
   }
+  # The first worktree listed is the main checkout; never offer it for removal.
+  main_worktree=$(git worktree list --porcelain | awk '/^worktree / {print $2; exit}')
 
-  git worktree list --porcelain |
-    rg '^worktree ' |
-    cut -d' ' -f2- |
-    rg --invert-match "^${current}$" |
-    awk -F/ '{print $NF "\t" $0}' |
-    fzf --multi \
-      --with-nth=1 \
-      --delimiter='\t' \
-      --preview="git -C {2} log --oneline -20" \
-      --height 40% \
-      --bind=ctrl-z:ignore |
-    cut -f2 |
-    xargs_no_run_if_empty -I{} git worktree remove {}
+  selected=$(
+    git worktree list --porcelain |
+      rg '^worktree ' |
+      cut -d' ' -f2- |
+      rg --invert-match "^${main_worktree}$" |
+      awk -F/ '{print $NF "\t" $0}' |
+      fzf --multi \
+        --with-nth=1 \
+        --delimiter='\t' \
+        --preview="git -C {2} log --oneline -20" \
+        --height 40% \
+        --bind=ctrl-z:ignore |
+      cut -f2
+  )
+  [[ -z "$selected" ]] && return 1
+
+  # If the worktree we're currently in is being removed, cd out first so the
+  # remove succeeds, then land in the main checkout.
+  if print -r -- "$selected" | rg --quiet "^${current}$"; then
+    removed_current=1
+    cd "$main_worktree"
+  fi
+
+  print -r -- "$selected" | xargs_no_run_if_empty -I{} git worktree remove {}
 }
 alias gwtr="git_worktree_remove"
 
