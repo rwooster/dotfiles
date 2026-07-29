@@ -147,7 +147,14 @@ git_worktree_add() {
 alias gwt="git_worktree_add"
 
 git_worktree_remove() {
-  local current main_worktree selected
+  local current main_worktree selected force=""
+  while [[ "$1" == -* ]]; do
+    case "$1" in
+      -f|--force) force=1 ;;
+      *) echo "Unknown option: $1" >&2; return 1 ;;
+    esac
+    shift
+  done
   current=$(git rev-parse --show-toplevel 2>/dev/null) || {
     echo "Not in a git repository" >&2
     return 1
@@ -171,14 +178,23 @@ git_worktree_remove() {
   )
   [[ -z "$selected" ]] && return 1
 
-  # If the worktree we're currently in is being removed, cd out first so the
-  # remove succeeds, then land in the main checkout.
-  if print -r -- "$selected" | rg --quiet "^${current}$"; then
-    removed_current=1
-    cd "$main_worktree"
-  fi
-
-  print -r -- "$selected" | xargs_no_run_if_empty -I{} git worktree remove {}
+  # Remove each selected worktree individually so a failure on one (e.g. it has
+  # modified/untracked files) doesn't affect the others. Only leave the current
+  # worktree's directory if its removal actually succeeds.
+  local worktree
+  while IFS= read -r worktree; do
+    [[ -z "$worktree" ]] && continue
+    if [[ "$worktree" == "$current" ]]; then
+      # cd out first so the remove can succeed, then land in the main checkout.
+      # If removal fails, cd back so we don't strand ourselves in a stale path.
+      cd "$main_worktree"
+      if ! git worktree remove ${force:+--force} "$worktree"; then
+        cd "$current"
+      fi
+    else
+      git worktree remove ${force:+--force} "$worktree"
+    fi
+  done <<< "$selected"
 }
 alias gwtr="git_worktree_remove"
 
